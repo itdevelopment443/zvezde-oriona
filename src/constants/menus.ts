@@ -27,7 +27,7 @@ export const mainHeaderMenu: MenuItem[] = [
   },
   {
     label: "O nas",
-    href: "kontakt#1",
+    href: "kontakt#about-section",
     type: "link",
   },
 ];

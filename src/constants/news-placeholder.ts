@@ -1,44 +1,144 @@
-interface News {
-  title: string;
-  featured_image: string;
-  excerpt: string;
-  href: string;
-}
+import { Card } from "@/components/sections/home/CarouselSectionTwo";
 
-export const newsArchive: News[] = [
+export const newsArchive: Card[] = [
   {
     title: "Zvezde Oriona 2025",
     excerpt:
-      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos iaculis orci. Pretium pede mattis mollis praesent odio eleifend egestas. Tempor nascetur orci ",
-    featured_image: "/placeholder.svg",
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
     href: "/",
   },
   {
     title: "Zvezde Oriona 2025",
     excerpt:
-      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos iaculis orci. Pretium pede mattis mollis praesent odio eleifend egestas. Tempor nascetur orci ",
-    featured_image: "/placeholder.svg",
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
     href: "/",
   },
   {
     title: "Zvezde Oriona 2025",
     excerpt:
-      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos iaculis orci. Pretium pede mattis mollis praesent odio eleifend egestas. Tempor nascetur orci ",
-    featured_image: "/placeholder.svg",
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
     href: "/",
   },
   {
     title: "Zvezde Oriona 2025",
     excerpt:
-      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos iaculis orci. Pretium pede mattis mollis praesent odio eleifend egestas. Tempor nascetur orci ",
-    featured_image: "/placeholder.svg",
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
     href: "/",
   },
   {
     title: "Zvezde Oriona 2025",
     excerpt:
-      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos iaculis orci. Pretium pede mattis mollis praesent odio eleifend egestas. Tempor nascetur orci ",
-    featured_image: "/placeholder.svg",
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
+    href: "/",
+  },
+  {
+    title: "Zvezde Oriona 2025",
+    excerpt:
+      "Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce inceptos. ",
+    featured_image: "/cgp/placholder-2.png",
     href: "/",
   },
 ];

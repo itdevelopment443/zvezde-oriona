@@ -1,3 +1,3 @@
 export default function PageBySlug() {
-  return <div>page</div>;
+  return <div></div>;
 }

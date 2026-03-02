@@ -231,6 +231,46 @@ function CarouselNext({
   );
 }
 
+function CarouselProgress({ className }: { className?: string }) {
+  const { api } = useCarousel();
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    const update = () => {
+      setProgress(api.scrollProgress()); // 0 → 1
+    };
+
+    update();
+    api.on("scroll", update);
+    api.on("select", update);
+    api.on("reInit", update);
+
+    return () => {
+      api.off("scroll", update);
+      api.off("select", update);
+      api.off("reInit", update);
+    };
+  }, [api]);
+
+  return (
+    <div className={cn("w-full", className)}>
+      {/* background line */}
+      <div className="relative h-1 w-full bg-white ">
+        {/* moving line from progress → 100% */}
+        <div
+          className="absolute top-0 h-full bg-neutral-700 "
+          style={{
+            left: `${progress * 100}%`,
+            width: `${(1 - progress) * 100}%`,
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export {
   type CarouselApi,
   Carousel,
@@ -238,4 +278,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselProgress,
 };

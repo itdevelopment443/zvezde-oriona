@@ -5,6 +5,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselProgress,
 } from "@/components/ui/carousel";
 import { newsArchive } from "@/constants/news-placeholder";
 import Link from "next/link";
@@ -27,7 +28,7 @@ export default function CarouselSectionThree() {
                 }}
               >
                 <div className=" col-span-3"></div>
-                <div className="bg-black flex flex-col items-start justify-center gap-5 p-15 col-span-2">
+                <div className="bg-black flex flex-col items-start justify-center gap-5 p-16 col-span-2">
                   <div className="w-full flex justify-between">
                     <h2 className=" text-3xl font-black">{item.title}</h2>
                     <div className=" flex gap-2">

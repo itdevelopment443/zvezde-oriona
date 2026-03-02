@@ -4,16 +4,18 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className=" fixed top-0 z-100 w-full flex items-center justify-between bg-neutral-800 py-8 px-10">
-      <div className=" w-15">
-        <div className="absolute left-10 top-0 bg-white p-5 rounded-b-sm">
-          <Image
-            src="/cgp/logo-black.svg"
-            height={100}
-            width={100}
-            alt="Logo"
-          />
-        </div>
+    <header className="fixed top-0 z-100 w-full flex items-center justify-between bg-neutral-800 py-6 px-16">
+      <div className="w-16">
+        <Link href={"/"}>
+          <div className="absolute left-16 top-0 bg-white p-5 rounded-b-sm">
+            <Image
+              src="/cgp/logo-black.svg"
+              height={80}
+              width={80}
+              alt="Logo"
+            />
+          </div>
+        </Link>
       </div>
       <nav>
         <ol className=" flex gap-10">

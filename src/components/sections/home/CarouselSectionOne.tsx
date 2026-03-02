@@ -2,18 +2,37 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  CarouselProgress,
 } from "@/components/ui/carousel";
-import { newsArchive } from "@/constants/news-placeholder";
 import Image from "next/image";
 
-export default function CarouselSectionOne() {
+export interface Card {
+  upperHeading?: string;
+  title: string;
+  featured_image: string;
+  excerpt: string;
+  href: string;
+}
+
+interface CarouselOneProps {
+  title: string;
+  description?: string;
+  cards: Card[];
+}
+
+export default function CarouselSectionOne({
+  title,
+  description,
+  cards,
+}: CarouselOneProps) {
   return (
-    <section className="px-10 pb-30 flex flex-col gap-16">
+    <section className="pl-16 pb-30 flex flex-col gap-16">
       <div className="flex flex-col gap-10">
         <div className="flex gap-10 items-center">
           <div className="relative">
-            <h2>Nagrade</h2>
-            <div></div>
+            <h2>{title}</h2>
             <Image
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10"
               src={"/cgp/lik.svg"}
@@ -24,15 +43,17 @@ export default function CarouselSectionOne() {
           </div>
           <div className="w-full h-[1.5px] bg-primary" />
         </div>
+        {description ?? <p className=" hidden">{description}</p>}
       </div>
       <Carousel
+        className="flex flex-col gap-6"
         opts={{
           align: "start",
           loop: true,
         }}
       >
         <CarouselContent className="-ml-8 ">
-          {newsArchive.map((item, index) => (
+          {cards.map((item, index) => (
             <CarouselItem className="basis-4/14 translate-x-4 pl-8" key={index}>
               <div>
                 <div className="flex flex-col items-start gap-8 py-6 ">
@@ -61,6 +82,11 @@ export default function CarouselSectionOne() {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <div className="flex items-center gap-2 pr-16">
+          <CarouselPrevious className="static translate-none rounded-none bg-primary! border-none" />
+          <CarouselProgress />
+          <CarouselNext className="static translate-none rounded-none bg-primary! border-none" />
+        </div>
       </Carousel>
     </section>
   );

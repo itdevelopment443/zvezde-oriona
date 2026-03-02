@@ -126,6 +126,9 @@
   a {
     @apply hover:text-foreground/50 duration-400;
   }
+  h1 {
+    @apply text-7xl font-bold leading-24;
+  }
   h2 {
     @apply text-6xl font-bold;
   }
