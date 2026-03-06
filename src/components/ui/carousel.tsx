@@ -257,10 +257,10 @@ function CarouselProgress({ className }: { className?: string }) {
   return (
     <div className={cn("w-full", className)}>
       {/* background line */}
-      <div className="relative h-1 w-full bg-white ">
+      <div className="relative h-[0.2rem] w-full bg-tertiary ">
         {/* moving line from progress → 100% */}
         <div
-          className="absolute top-0 h-full bg-neutral-700 "
+          className="absolute top-0 h-full bg-neutral-300 "
           style={{
             left: `${progress * 100}%`,
             width: `${(1 - progress) * 100}%`,

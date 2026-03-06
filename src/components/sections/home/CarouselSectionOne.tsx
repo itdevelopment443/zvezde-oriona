@@ -7,43 +7,37 @@ import {
   CarouselProgress,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-
-export interface Card {
-  upperHeading?: string;
-  title: string;
-  featured_image: string;
-  excerpt: string;
-  href: string;
-}
+import { Card } from "./CarouselSectionTwo";
+import { cn } from "@/lib/utils";
 
 interface CarouselOneProps {
   title: string;
   description?: string;
   cards: Card[];
+  className?: string;
 }
 
 export default function CarouselSectionOne({
   title,
   description,
   cards,
+  className,
 }: CarouselOneProps) {
   return (
-    <section className="pl-16 pb-30 flex flex-col gap-16">
-      <div className="flex flex-col gap-10">
-        <div className="flex gap-10 items-center">
+    <section className={cn("lg:pr-0 gap-6 lg:gap-8", className)}>
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 ">
+        <div className="flex gap-10 items-start">
           <div className="relative">
-            <h2>{title}</h2>
-            <Image
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10"
-              src={"/cgp/lik.svg"}
-              height={100}
-              width={100}
-              alt="lik"
-            />
+            <h2 className=" uppercase">{title}</h2>
           </div>
-          <div className="w-full h-[1.5px] bg-primary" />
         </div>
-        {description ?? <p className=" hidden">{description}</p>}
+        <p
+          className={cn("text-xl", {
+            hidden: !description,
+          })}
+        >
+          {description}
+        </p>
       </div>
       <Carousel
         className="flex flex-col gap-6"
@@ -54,24 +48,22 @@ export default function CarouselSectionOne({
       >
         <CarouselContent className="-ml-8 ">
           {cards.map((item, index) => (
-            <CarouselItem className="basis-4/14 translate-x-4 pl-8" key={index}>
+            <CarouselItem
+              className="basis-1/1 md:basis-1/2 lg:basis-4/14 translate-x-4 "
+              key={index}
+            >
               <div>
                 <div className="flex flex-col items-start gap-8 py-6 ">
-                  <div className="relative inline-block">
-                    {/* IMAGE */}
+                  <div className="relative w-full">
                     <Image
                       src={item.featured_image}
                       height={500}
                       width={500}
                       alt="prikazna slika"
-                      className="block aspect-square object-cover"
+                      className="block w-full aspect-square object-cover border-2 border-secondary"
                     />
-                    <div className="absolute w-16 h-16 bg-primary -top-2 -left-2 -z-20" />
-                    <div className="absolute w-16 h-16 bg-primary -top-2 -right-2 -z-20" />
-                    <div className="absolute w-16 h-16 bg-primary -bottom-2 -left-2 -z-20" />
-                    <div className="absolute w-16 h-16 bg-primary -bottom-2 -right-2 -z-20" />
                   </div>
-                  <div className="flex flex-col gap-3 pr-5">
+                  <div className="flex flex-col gap-3 lg:pr-5">
                     <div className="flex items-center gap-2">
                       <h3 className="text-3xl font-black">{item.title}</h3>
                     </div>
@@ -82,10 +74,10 @@ export default function CarouselSectionOne({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="flex items-center gap-2 pr-16">
-          <CarouselPrevious className="static translate-none rounded-none bg-primary! border-none" />
+        <div className="flex items-center gap-2 lg:pr-16">
+          <CarouselPrevious className="static translate-none bg-secondary! border-none rounded-full" />
           <CarouselProgress />
-          <CarouselNext className="static translate-none rounded-none bg-primary! border-none" />
+          <CarouselNext className="static translate-none bg-secondary! border-none rounded-full" />
         </div>
       </Carousel>
     </section>

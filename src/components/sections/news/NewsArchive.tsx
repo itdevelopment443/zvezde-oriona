@@ -1,5 +1,6 @@
 import NewsArchiveClient from "./NewsClient";
 import { Card } from "../home/CarouselSectionTwo";
+import ComboboxAwards from "../awards/ComboboxAwards";
 
 interface NewsArchive {
   title: string;
@@ -13,10 +14,11 @@ export default function NewsArchive({
   cards,
 }: NewsArchive) {
   return (
-    <section className="flex flex-col gap-10">
-      <div className="flex gap-10 items-center px-16 ">
-        <h1>{title}</h1>
-        {description ?? <p>{description}</p>}
+    <section className="gap-8">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-start">
+        <h1 className="w-3/5">{title}</h1>
+        <p className=" text-xl">{description}</p>
+        <ComboboxAwards />
       </div>
       <NewsArchiveClient items={cards} />
     </section>

@@ -3,7 +3,7 @@ import { newsArchive } from "@/constants/news-placeholder";
 
 export default function NewsArchivePage() {
   return (
-    <main className=" py-40">
+    <main>
       <NewsArchive
         title="Novice"
         description="   Neque lobortis nunc suspendisse aliquet accumsan laoreet nibh fusce
