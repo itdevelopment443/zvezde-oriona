@@ -153,15 +153,25 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   _order?: string | null;
-  createdAt: string;
+  'published-at': string;
   slug: string;
   title: string;
   excerpt: string;
   'featured-image'?: (number | null) | Image;
   sections?:
-    | (HomeHeroBlock | ExposedNewsBlock | EventsBlock | SeperatorBlock | AwardsBlock | AboutUsBlock | LawBlock)[]
+    | (
+        | HomeHeroBlock
+        | ExposedNewsBlock
+        | EventsBlock
+        | SeperatorBlock
+        | AwardsBlock
+        | AboutUsBlock
+        | LawBlock
+        | NewsArchiveBlock
+      )[]
     | null;
   updatedAt: string;
+  createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
 }
@@ -295,19 +305,73 @@ export interface LawBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsArchiveBlock".
+ */
+export interface NewsArchiveBlock {
+  heading: string;
+  description?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'news-archive-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news".
  */
 export interface News {
   id: number;
-  createdAt: string;
+  'published-at': string;
   slug: string;
   'exposed-news'?: boolean | null;
   title: string;
   excerpt: string;
   'featured-image'?: (number | null) | Image;
+  sections?: (ContentBlock | ImagesBlock)[] | null;
   updatedAt: string;
+  createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock".
+ */
+export interface ContentBlock {
+  'lexical-content'?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  content?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImagesBlock".
+ */
+export interface ImagesBlock {
+  'number-of-columns'?: ('1' | '2' | '3' | '4') | null;
+  images?:
+    | {
+        image?: (number | null) | Image;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'images-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -315,12 +379,13 @@ export interface News {
  */
 export interface Event {
   id: number;
-  createdAt: string;
+  'published-at': string;
   slug: string;
   title: string;
   excerpt: string;
   'featured-image'?: (number | null) | Image;
   updatedAt: string;
+  createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
 }
@@ -331,12 +396,13 @@ export interface Event {
 export interface Award {
   id: number;
   _order?: string | null;
-  createdAt: string;
+  'published-at': string;
   slug: string;
   title: string;
   excerpt: string;
   'featured-image'?: (number | null) | Image;
   updatedAt: string;
+  createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
 }
@@ -752,7 +818,7 @@ export interface PayloadQueryPreset {
  */
 export interface PagesSelect<T extends boolean = true> {
   _order?: T;
-  createdAt?: T;
+  'published-at'?: T;
   slug?: T;
   title?: T;
   excerpt?: T;
@@ -767,8 +833,10 @@ export interface PagesSelect<T extends boolean = true> {
         'awards-block'?: T | AwardsBlockSelect<T>;
         'about-us-block'?: T | AboutUsBlockSelect<T>;
         'law-block'?: T | LawBlockSelect<T>;
+        'news-archive-block'?: T | NewsArchiveBlockSelect<T>;
       };
   updatedAt?: T;
+  createdAt?: T;
   deletedAt?: T;
   _status?: T;
 }
@@ -850,30 +918,73 @@ export interface LawBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsArchiveBlock_select".
+ */
+export interface NewsArchiveBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news_select".
  */
 export interface NewsSelect<T extends boolean = true> {
-  createdAt?: T;
+  'published-at'?: T;
   slug?: T;
   'exposed-news'?: T;
   title?: T;
   excerpt?: T;
   'featured-image'?: T;
+  sections?:
+    | T
+    | {
+        'content-block'?: T | ContentBlockSelect<T>;
+        'images-block'?: T | ImagesBlockSelect<T>;
+      };
   updatedAt?: T;
+  createdAt?: T;
   deletedAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock_select".
+ */
+export interface ContentBlockSelect<T extends boolean = true> {
+  'lexical-content'?: T;
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImagesBlock_select".
+ */
+export interface ImagesBlockSelect<T extends boolean = true> {
+  'number-of-columns'?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
-  createdAt?: T;
+  'published-at'?: T;
   slug?: T;
   title?: T;
   excerpt?: T;
   'featured-image'?: T;
   updatedAt?: T;
+  createdAt?: T;
   deletedAt?: T;
   _status?: T;
 }
@@ -883,12 +994,13 @@ export interface EventsSelect<T extends boolean = true> {
  */
 export interface AwardsSelect<T extends boolean = true> {
   _order?: T;
-  createdAt?: T;
+  'published-at'?: T;
   slug?: T;
   title?: T;
   excerpt?: T;
   'featured-image'?: T;
   updatedAt?: T;
+  createdAt?: T;
   deletedAt?: T;
   _status?: T;
 }

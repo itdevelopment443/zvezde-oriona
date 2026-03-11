@@ -1,18 +1,20 @@
-import { createRoles } from "@/backend/fields/non-localized/auth/create-roles";
-import type { CollectionConfig } from "payload";
+import { createRoles } from '@/backend/fields/non-localized/auth/create-roles'
+import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {
-  slug: "users",
+  slug: 'users',
   admin: {
-    group: "Authentication",
-    useAsTitle: "email",
+    group: 'Authentication',
+    useAsTitle: 'email',
   },
   lockDocuments: {
-    duration: 120, // Keep locked document 2 minutes after unactivity
+    duration: 10, // Keep locked document 2 minutes after unactivity
   },
-  auth: true,
+  auth: {
+    maxLoginAttempts: 200,
+  },
   fields: [
     // Email added by default
     createRoles(),
   ],
-};
+}

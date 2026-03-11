@@ -5,12 +5,12 @@ interface CreatedAtProps {
   unique?: boolean
 }
 
-export const createCreatedAt = ({
-  required = false,
+export const createPublishedAt = ({
+  required = true,
   unique = false,
 }: CreatedAtProps = {}): Field => {
   return {
-    name: 'createdAt',
+    name: 'published-at',
     type: 'date',
     admin: {
       position: 'sidebar',

@@ -30,7 +30,9 @@ const HomePage = async ({
         renderSection({
           section,
           sectionMap,
-          props: searchParams,
+          locale,
+          isLivePreview,
+          searchParams: resolvedSearchParams,
           fallbackKey: `${section.blockType}-${section.id ?? index}`,
         }),
       )}

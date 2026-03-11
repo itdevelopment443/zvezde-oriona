@@ -17,6 +17,7 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { News } from './backend/collections/posts/News'
 import { Events } from './backend/collections/posts/Events'
 import { Awards } from './backend/collections/posts/Awards'
+import { enableNodemailer } from './backend/plugins/enable-nodemailer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -35,6 +36,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  email: enableNodemailer(),
   localization: enableLocalization(),
   i18n: enableI18n(),
   db: postgresAdapter({

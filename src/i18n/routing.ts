@@ -13,12 +13,12 @@ export const routing = defineRouting({
       en: '/[...slug]',
     },
 
-    '/news': {
+    '/novice': {
       sl: '/novice',
       en: '/news',
     },
 
-    '/news/[...slug]': {
+    '/novice/[...slug]': {
       sl: '/novice/[...slug]',
       en: '/news/[...slug]',
     },

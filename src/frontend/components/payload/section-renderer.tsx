@@ -1,20 +1,30 @@
-import { SectionComponentMap } from '@/types/page-types'
-import { Fragment } from 'react/jsx-runtime'
+import { Fragment, type ReactElement } from 'react'
+import { SearchParams, SectionComponentMap } from '@/types/page-types'
 import { RefreshPageOnSave } from './refresh-page'
+import { Locale } from '@/i18n/i18n.config'
 
 interface RenderSectionProps {
   section: any
-  props: any
+  searchParams: Awaited<SearchParams>
+  locale: Locale
+  isLivePreview: boolean
   sectionMap: SectionComponentMap
   fallbackKey: string
 }
 
-export const renderSection = ({ section, props, sectionMap, fallbackKey }: RenderSectionProps) => {
-  const { isLivePreview, locale } = props
+export const renderSection = ({
+  section,
+  searchParams,
+  locale,
+  isLivePreview,
+  sectionMap,
+  fallbackKey,
+}: RenderSectionProps): ReactElement | null => {
   const sectionProps = {
     ...section,
     locale,
-    id: section.id || fallbackKey || undefined,
+    searchParams,
+    id: section.id ?? fallbackKey,
   }
 
   const SectionComponent = sectionMap[section.blockType]
@@ -25,7 +35,7 @@ export const renderSection = ({ section, props, sectionMap, fallbackKey }: Rende
   }
 
   return (
-    <Fragment key={section.id}>
+    <Fragment key={section.id ?? fallbackKey}>
       {isLivePreview && <RefreshPageOnSave />}
       <SectionComponent {...sectionProps} />
     </Fragment>

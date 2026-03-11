@@ -24,13 +24,15 @@ const NewsPage = async ({
   }
 
   return (
-    <main className="pt-0">
+    <main>
       {isLivePreview && <RefreshPageOnSave />}
       {data.sections?.map((section, index) =>
         renderSection({
           section,
           sectionMap,
-          props: searchParams,
+          locale,
+          isLivePreview,
+          searchParams: resolvedSearchParams,
           fallbackKey: `${section.blockType}-${section.id ?? index}`,
         }),
       )}
@@ -40,25 +42,20 @@ const NewsPage = async ({
 
 export default NewsPage
 
-// Render individual sections based on their type
 const queryPageData = cache(async ({ locale }: QueryPageDataProps) => {
   try {
     const payload = await getPayload({ config: configPromise })
 
-    const whereCondition = {
-      slug: { equals: 'novice' },
-    }
-
     const result = await payload.find({
       collection: 'pages',
-      locale: locale,
+      locale,
       limit: 1,
-      where: { and: [whereCondition] },
+      where: {
+        and: [{ slug: { equals: 'novice' } }],
+      },
     })
 
-    const data = result.docs?.[0] || null
-
-    return data
+    return result.docs?.[0] || null
   } catch (error) {
     console.error('Error fetching page data:', error)
     return null
