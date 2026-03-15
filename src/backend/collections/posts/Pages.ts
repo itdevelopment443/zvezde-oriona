@@ -21,6 +21,20 @@ export const Pages: CollectionConfig = {
     useAsTitle: 'title',
     group: 'Posts',
     defaultColumns: ['title', 'excerpt', 'slug', 'createdAt'],
+    livePreview: {
+      url: ({ data, locale }) => {
+        const siteUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+        const localePrefix = locale.code || 'sl'
+        const isHomePage = data?.slug === 'domaca-stran' || data?.slug === 'home-page'
+        const endUrl = isHomePage
+          ? `${siteUrl}/${localePrefix}?isDraft=true&livePreview=true`
+          : `${siteUrl}/${localePrefix}/${data?.slug}?isDraft=true&livePreview=true`
+
+        console.log(endUrl)
+
+        return endUrl
+      },
+    },
   },
   access: {
     read: () => true,

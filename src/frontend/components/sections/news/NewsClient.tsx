@@ -32,11 +32,11 @@ export default function NewsArchiveClient({
 
   return (
     <div>
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 lg:gap-6">
         {items.map((item, index) => (
           <Link key={index} href={item.link.href}>
             <div className="w-full">
-              <div className="flex flex-col items-start gap-8 py-6">
+              <div className="flex flex-col items-start">
                 <div className="w-full">
                   <Image
                     src={item.featured_image}
@@ -46,7 +46,7 @@ export default function NewsArchiveClient({
                     className="w-full"
                   />
                 </div>
-                <div className="flex flex-col gap-3 pr-5">
+                <div className="flex flex-col gap-3 pr-5 py-6">
                   <h3 className="text-3xl font-black">{item.title}</h3>
                   <p>{item.excerpt}</p>
                 </div>

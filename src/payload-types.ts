@@ -74,6 +74,8 @@ export interface Config {
     gallery: Gallery;
     images: Image;
     documents: Document;
+    'event-years': EventYear;
+    'news-years': NewsYear;
     users: User;
     redirects: Redirect;
     exports: Export;
@@ -94,6 +96,8 @@ export interface Config {
     gallery: GallerySelect<false> | GallerySelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
+    'event-years': EventYearsSelect<false> | EventYearsSelect<true>;
+    'news-years': NewsYearsSelect<false> | NewsYearsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
@@ -163,7 +167,11 @@ export interface Page {
         | HomeHeroBlock
         | ExposedNewsBlock
         | EventsBlock
-        | SeperatorBlock
+        | {
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'seperator-block';
+          }
         | AwardsBlock
         | AboutUsBlock
         | LawBlock
@@ -224,15 +232,6 @@ export interface EventsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'events-block';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SeperatorBlock".
- */
-export interface SeperatorBlock {
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'seperator-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -384,10 +383,92 @@ export interface Event {
   title: string;
   excerpt: string;
   'featured-image'?: (number | null) | Image;
+  location?: string | null;
+  sections?: (AboutEventBlock | SeperatorBlock | WinnersBlock | GalleryBlock | VideoBlock)[] | null;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutEventBlock".
+ */
+export interface AboutEventBlock {
+  'lexical-content'?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  content?: string | null;
+  'lexical-more-content'?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  'more-content'?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'about-event-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeperatorBlock".
+ */
+export interface SeperatorBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'seperator-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WinnersBlock".
+ */
+export interface WinnersBlock {
+  heading?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'winners-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  heading?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  heading?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'video-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -401,10 +482,22 @@ export interface Award {
   title: string;
   excerpt: string;
   'featured-image'?: (number | null) | Image;
+  sections?: AwardsHeroBlock[] | null;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AwardsHeroBlock".
+ */
+export interface AwardsHeroBlock {
+  heading?: string | null;
+  description: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'awards-hero-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -443,6 +536,26 @@ export interface Document {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-years".
+ */
+export interface EventYear {
+  id: number;
+  year: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-years".
+ */
+export interface NewsYear {
+  id: number;
+  year: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -714,6 +827,14 @@ export interface PayloadLockedDocument {
         value: number | Document;
       } | null)
     | ({
+        relationTo: 'event-years';
+        value: number | EventYear;
+      } | null)
+    | ({
+        relationTo: 'news-years';
+        value: number | NewsYear;
+      } | null)
+    | ({
         relationTo: 'users';
         value: number | User;
       } | null)
@@ -983,10 +1104,59 @@ export interface EventsSelect<T extends boolean = true> {
   title?: T;
   excerpt?: T;
   'featured-image'?: T;
+  location?: T;
+  sections?:
+    | T
+    | {
+        'about-event-block'?: T | AboutEventBlockSelect<T>;
+        'seperator-block'?: T | SeperatorBlockSelect<T>;
+        'winners-block'?: T | WinnersBlockSelect<T>;
+        'gallery-block'?: T | GalleryBlockSelect<T>;
+        'video-block'?: T | VideoBlockSelect<T>;
+      };
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutEventBlock_select".
+ */
+export interface AboutEventBlockSelect<T extends boolean = true> {
+  'lexical-content'?: T;
+  content?: T;
+  'lexical-more-content'?: T;
+  'more-content'?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WinnersBlock_select".
+ */
+export interface WinnersBlockSelect<T extends boolean = true> {
+  heading?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  heading?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  heading?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -999,10 +1169,25 @@ export interface AwardsSelect<T extends boolean = true> {
   title?: T;
   excerpt?: T;
   'featured-image'?: T;
+  sections?:
+    | T
+    | {
+        'awards-hero-block'?: T | AwardsHeroBlockSelect<T>;
+      };
   updatedAt?: T;
   createdAt?: T;
   deletedAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AwardsHeroBlock_select".
+ */
+export interface AwardsHeroBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1057,6 +1242,24 @@ export interface DocumentsSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "event-years_select".
+ */
+export interface EventYearsSelect<T extends boolean = true> {
+  year?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news-years_select".
+ */
+export interface NewsYearsSelect<T extends boolean = true> {
+  year?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1292,6 +1495,8 @@ export interface TaskCreateCollectionExport {
       | 'gallery'
       | 'images'
       | 'documents'
+      | 'event-years'
+      | 'news-years'
       | 'users'
       | 'redirects'
       | 'exports'

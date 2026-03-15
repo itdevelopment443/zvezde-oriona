@@ -5,6 +5,8 @@ import { isAdminOrEditor } from '../access-control/isAdminOrEditor'
 import { createSlug } from '@/backend/fields/non-localized/text/create-slug'
 import { createFeaturedImage } from '@/backend/fields/non-localized/images/create-featured.image'
 import { createPublishedAt } from '@/backend/fields/non-localized/date/create-created-at'
+import { AwardsBlock } from '@/backend/blocks/awards-block'
+import { AwardsHeroBlock } from '@/backend/blocks/awards-hero-block'
 
 export const Awards: CollectionConfig = {
   slug: 'awards',
@@ -35,5 +37,10 @@ export const Awards: CollectionConfig = {
     createTitle({ required: true, unique: true }),
     createExcerpt({ required: true }),
     createFeaturedImage(),
+    {
+      name: 'sections',
+      type: 'blocks',
+      blocks: [AwardsHeroBlock],
+    },
   ],
 }

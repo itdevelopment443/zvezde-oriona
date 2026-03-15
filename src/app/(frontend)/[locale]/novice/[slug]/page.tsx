@@ -7,6 +7,7 @@ import { SearchParams, Params, QueryPageDataProps } from '@/types/page-types'
 import { renderSection } from '@/frontend/components/payload/section-renderer'
 import NewsHero from '@/frontend/components/sections/news/NewsBySlug/NewsHero'
 import { newsSectionMap } from '@/frontend/constants/news-sections'
+import ShareLinksSection from '@/frontend/components/sections/reusable/ShareLinksSectionOne'
 
 const NewsBySlugPage = async ({
   params,
@@ -25,7 +26,7 @@ const NewsBySlugPage = async ({
   }
 
   return (
-    <main>
+    <main className="lg:gap-12">
       {isLivePreview && <RefreshPageOnSave />}
       <NewsHero {...data} />
       {data.sections?.map((section, index) =>
@@ -38,6 +39,7 @@ const NewsBySlugPage = async ({
           fallbackKey: `${section.blockType}-${section.id ?? index}`,
         }),
       )}
+      <ShareLinksSection />
     </main>
   )
 }

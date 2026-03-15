@@ -9,4 +9,3 @@ export const iconMap = Object.fromEntries(
   }),
 ) as Record<string, LucideIcon>
 
-export type IconName = keyof typeof iconMap

@@ -1,6 +1,6 @@
+import type { CollectionConfig } from 'payload'
 import { createExcerpt } from '@/backend/fields/non-localized/text/create-excerpt'
 import { createTitle } from '@/backend/fields/non-localized/text/create-title'
-import type { CollectionConfig } from 'payload'
 import { isAdminOrEditor } from '../access-control/isAdminOrEditor'
 import { createSlug } from '@/backend/fields/non-localized/text/create-slug'
 import { createFeaturedImage } from '@/backend/fields/non-localized/images/create-featured.image'
@@ -8,6 +8,7 @@ import { createPublishedAt } from '@/backend/fields/non-localized/date/create-cr
 import { createExposedContent } from '@/backend/fields/non-localized/create-exposed-content'
 import { ContentBlock } from '@/backend/blocks/content-block'
 import { ImagesBlock } from '@/backend/blocks/images-block'
+import { generateYear } from '@/backend/hooks/generate-year'
 
 export const News: CollectionConfig = {
   slug: 'news',
@@ -28,6 +29,17 @@ export const News: CollectionConfig = {
   },
   lockDocuments: {
     duration: 120, // Keep locked document 2 minutes after unactivity
+  },
+  hooks: {
+    afterChange: [
+      async ({ doc, req }) => {
+        await generateYear({
+          payload: req.payload,
+          date: doc['published-at'],
+          collection: 'news-years',
+        })
+      },
+    ],
   },
   trash: true,
   enableQueryPresets: true,

@@ -11,24 +11,26 @@ import { cn } from '@/frontend/lib/utils'
 import { Card } from '@/types/card-types'
 
 interface GalleryCarouselSectionOneProps {
-  title: string
+  id: string
+  heading: string
   description?: string
   cards: Card[]
   className?: string
 }
 
 export default function GalleryCarouselSectionOne({
-  title,
+  id,
+  heading,
   description,
   cards,
   className,
 }: GalleryCarouselSectionOneProps) {
   return (
-    <section className={cn('gap-6 lg:gap-8', className)}>
+    <section id={id} className={cn('gap-6 lg:gap-8', className)}>
       <div className="flex gap-10 pr-16">
         <div className="flex gap-10 items-start">
           <div className="relative">
-            <h2 className=" uppercase">{title}</h2>
+            <h2 className=" uppercase">{heading}</h2>
           </div>
           <div className="w-full h-[1.5px] bg-primary" />
         </div>
@@ -65,7 +67,11 @@ export default function GalleryCarouselSectionOne({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="flex items-center gap-2">
+        <div
+          className={cn('flex items-center gap-2', {
+            hidden: cards.length === 1,
+          })}
+        >
           <CarouselPrevious className="static translate-none bg-secondary! border-none rounded-full" />
           <CarouselProgress />
           <CarouselNext className="static translate-none bg-secondary! border-none rounded-full" />

@@ -29,12 +29,13 @@ export default async function Awards({ heading, description, locale }: AwardsPro
       excerpt: v.excerpt || '',
       link: {
         label: 'Preberi več',
-        href: `/${locale}/novice/${v.slug}`,
+        href: `/${locale}/nagrade/${v.slug}`,
       },
     }
   })
   return (
     <CardSectionOne
+      id={'awards'}
       heading={getText(heading, 'Untitled')}
       description={getText(description)}
       cards={cards}

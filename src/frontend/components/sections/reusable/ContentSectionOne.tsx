@@ -1,8 +1,8 @@
 import { ContentBlock } from '@/payload-types'
 
-export default function ContentSectionOne({ content }: ContentBlock) {
+export default function ContentSectionOne({ id, content }: ContentBlock) {
   return (
-    <section>
+    <section id={id || ''}>
       <div dangerouslySetInnerHTML={{ __html: content || '' }}></div>
     </section>
   )

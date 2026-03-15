@@ -15,7 +15,7 @@ export default function NewsHero({
 
   return (
     <section className="flex flex-col gap-5">
-      <h1 className=" leading-12">{title}</h1>
+      <h1>{title}</h1>
       <p>{formatDate(date)}</p>
       <Image src={image?.url || ''} width={2000} height={1200} alt="Prikazna slika" />
     </section>

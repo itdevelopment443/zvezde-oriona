@@ -10,7 +10,6 @@ import { enableI18n } from './backend/plugins/enable-I18n'
 import { enableImportAndExport } from './backend/plugins/enable-import-export'
 import { enableLocalization } from './backend/plugins/enable-localization'
 import { enableRedirects } from './backend/plugins/enable-redirects'
-import { enableSearch } from './backend/plugins/enable-search'
 import { Images } from './backend/collections/uploads/Images'
 import { Users } from './backend/collections/authentication/Users'
 import { postgresAdapter } from '@payloadcms/db-postgres'
@@ -18,6 +17,8 @@ import { News } from './backend/collections/posts/News'
 import { Events } from './backend/collections/posts/Events'
 import { Awards } from './backend/collections/posts/Awards'
 import { enableNodemailer } from './backend/plugins/enable-nodemailer'
+import { EventYears } from './backend/collections/categories/events/event-years'
+import { NewsYears } from './backend/collections/categories/news/news-years'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -30,7 +31,18 @@ export default buildConfig({
     },
   },
   globals: [],
-  collections: [Pages, News, Events, Awards, Gallery, Images, Documents, Users],
+  collections: [
+    Pages,
+    News,
+    Events,
+    Awards,
+    Gallery,
+    Images,
+    Documents,
+    EventYears,
+    NewsYears,
+    Users,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

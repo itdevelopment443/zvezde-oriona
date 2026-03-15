@@ -13,7 +13,7 @@ interface MenuItem {
 export const mainHeaderMenu: MenuItem[] = [
   {
     label: 'Podelitve',
-    href: 'dogodki',
+    href: '/#dogodki',
     type: 'link',
     subMenu: [
       {
@@ -24,7 +24,7 @@ export const mainHeaderMenu: MenuItem[] = [
   },
   {
     label: 'Nagrade',
-    href: 'nagrade',
+    href: '/#nagrade',
     type: 'link',
     subMenu: [
       {
@@ -35,13 +35,13 @@ export const mainHeaderMenu: MenuItem[] = [
   },
   {
     label: 'Novice',
-    href: 'novice',
+    href: '/novice',
     type: 'link',
   },
 
   {
     label: 'O nas',
-    href: 'o-nas',
+    href: '/o-nas',
     type: 'link',
   },
 ]
@@ -54,7 +54,7 @@ export const mainFooterMenu: MenuItem[] = [
   },
   {
     label: 'Politika zasebnosti',
-    href: 'politika-zasebnosti',
+    href: '/politika-zasebnosti',
     type: 'link',
   },
 ]

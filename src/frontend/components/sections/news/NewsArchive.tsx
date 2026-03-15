@@ -6,7 +6,6 @@ import { getImage } from '@/frontend/utils/normalize'
 import { Card } from '@/types/card-types'
 import NewsArchiveClient from './NewsClient'
 import ReusableCombobox from '../reusable/QuerySelect'
-import { generateYearOptions } from '@/frontend/lib/date'
 import { SearchParams } from '@/types/page-types'
 
 interface NewsArchiveProps extends NewsArchiveBlock {
@@ -26,20 +25,39 @@ export default async function NewsArchive({
 
   const payload = await getPayload({ config: configPromise })
 
+  const yearsResult = await payload.find({
+    collection: 'news-years',
+    sort: '-year',
+    limit: 100,
+    depth: 0,
+  })
+
+  const yearOptions = yearsResult.docs
+    .map((item) => ({
+      label: item.year,
+      value: item.year,
+    }))
+    .sort((a, b) => Number(b.value) - Number(a.value))
+
+  const selectedYear = year || yearOptions[0]?.value || ''
+
   const and = []
 
-  if (year) {
-    const startOfYear = new Date(Date.UTC(Number(year), 0, 1, 0, 0, 0, 0)).toISOString()
-    const startOfNextYear = new Date(Date.UTC(Number(year) + 1, 0, 1, 0, 0, 0, 0)).toISOString()
+  if (selectedYear) {
+    const startOfYear = new Date(Date.UTC(Number(selectedYear), 0, 1, 0, 0, 0, 0)).toISOString()
+
+    const startOfNextYear = new Date(
+      Date.UTC(Number(selectedYear) + 1, 0, 1, 0, 0, 0, 0),
+    ).toISOString()
 
     and.push(
       {
-        createdAt: {
+        'published-at': {
           greater_than_equal: startOfYear,
         },
       },
       {
-        createdAt: {
+        'published-at': {
           less_than: startOfNextYear,
         },
       },
@@ -50,7 +68,7 @@ export default async function NewsArchive({
     collection: 'news',
     locale,
     where: and.length ? { and } : undefined,
-    sort: '-publishedAt',
+    sort: '-published-at',
     limit,
   })
 
@@ -73,14 +91,18 @@ export default async function NewsArchive({
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-start">
         <h1 className="w-3/5">{heading}</h1>
         <p className="text-xl">{description}</p>
-        <ReusableCombobox
-          className="w-full lg:w-2/5 px-4 py-10 rounded-none border-2 border-white"
-          inputClassName="text-4xl! uppercase font-bold placeholder:text-3xl! placeholder:font-normal"
-          options={generateYearOptions({ startYear: 2026 })}
-          defaultValue={new Date().getFullYear()}
-          queryKey="year"
-        />
+
+        {yearOptions.length > 0 && (
+          <ReusableCombobox
+            className="w-full lg:w-2/5 px-4 py-10 rounded-none border-2 border-white"
+            inputClassName="text-4xl! uppercase font-bold placeholder:text-3xl! placeholder:font-normal"
+            options={yearOptions}
+            defaultValue={selectedYear.toString()}
+            queryKey="year"
+          />
+        )}
       </div>
+
       <NewsArchiveClient items={cards} totalDocs={result.totalDocs} currentLimit={limit} step={9} />
     </section>
   )

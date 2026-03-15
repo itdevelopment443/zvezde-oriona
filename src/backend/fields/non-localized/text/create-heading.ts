@@ -1,24 +1,13 @@
-import type { Field } from 'payload'
+import type { TextField } from 'payload'
 
-interface HeadingProps {
-  minLength?: number
-  maxLength?: number
-  required?: boolean
-  unique?: boolean
-}
+type HeadingField = Extract<TextField, { type: 'text'; hasMany?: false }>
+type HeadingProps = Omit<HeadingField, 'name' | 'type' | 'hasMany'>
 
-export const createHeading = ({
-  minLength = 0,
-  maxLength = 60,
-  required = false,
-  unique = false,
-}: HeadingProps = {}): Field => {
-  return {
-    name: 'heading',
-    type: 'text',
-    minLength,
-    maxLength,
-    required,
-    unique,
-  }
-}
+export const createHeading = (props: HeadingProps = {}): HeadingField => ({
+  name: 'heading',
+  type: 'text',
+  hasMany: false,
+  minLength: 0,
+  maxLength: 60,
+  ...props,
+})

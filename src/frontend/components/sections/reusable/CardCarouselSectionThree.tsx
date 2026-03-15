@@ -11,13 +11,14 @@ import { cn } from '@/frontend/lib/utils'
 import { Card } from '@/types/card-types'
 
 interface CardCarouselThreeProps {
+  id?: string | null
   cards: Card[]
   className?: string
 }
 
-export default function CardCarouselSectionThree({ cards, className }: CardCarouselThreeProps) {
+export default function CardCarouselSectionThree({ id, cards, className }: CardCarouselThreeProps) {
   return (
-    <section className={cn('px-0 py-0', className)}>
+    <section id={id || ''} className={cn('px-0 py-0', className)}>
       <Carousel
         opts={{
           loop: true,

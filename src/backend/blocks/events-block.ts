@@ -1,5 +1,4 @@
 import { Block } from 'payload'
-import { createGeneratedComponent } from '../fields/ui/create-generated-component'
 import { createHeading } from '../fields/non-localized/text/create-heading'
 import { createDescription } from '../fields/non-localized/text/create-description'
 

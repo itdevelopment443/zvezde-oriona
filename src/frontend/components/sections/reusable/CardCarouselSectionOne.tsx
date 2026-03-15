@@ -11,6 +11,7 @@ import { cn } from '@/frontend/lib/utils'
 import { Card } from '@/types/card-types'
 
 interface CardCarouselOneProps {
+  id?: string | null
   heading: string
   description?: string
   cards: Card[]
@@ -18,13 +19,14 @@ interface CardCarouselOneProps {
 }
 
 export default function CardCarouselSectionOne({
+  id,
   heading,
   description,
   cards,
   className,
 }: CardCarouselOneProps) {
   return (
-    <section className={cn('lg:pr-0 gap-6 lg:gap-8', className)}>
+    <section id={id || ''} className={cn('lg:pr-0 gap-6 lg:gap-8', className)}>
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 ">
         <div className="flex gap-10 items-start">
           <div className="relative">

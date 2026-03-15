@@ -10,7 +10,8 @@ import { cn } from '@/frontend/lib/utils'
 import { VimeoVideo } from '@/types/video-types'
 
 interface VideoCarouselSectionOneProps {
-  title: string
+  id: string
+  heading: string
   description?: string
   videos: VimeoVideo[]
   className?: string
@@ -21,17 +22,18 @@ function getVimeoEmbedUrl(videoId: string) {
 }
 
 export default function VideoCarouselSectionOne({
-  title,
+  id,
+  heading,
   description,
   videos,
   className,
 }: VideoCarouselSectionOneProps) {
   return (
-    <section className={cn(' gap-6 lg:gap-8', className)}>
+    <section id={id} className={cn(' gap-6 lg:gap-8', className)}>
       <div className="flex gap-10 pr-16">
         <div className="flex gap-10 items-start">
           <div className="relative">
-            <h2 className="uppercase">{title}</h2>
+            <h2 className="uppercase">{heading}</h2>
           </div>
           <div className="w-full h-[1.5px] bg-primary" />
         </div>

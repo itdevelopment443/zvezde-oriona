@@ -1,6 +1,6 @@
 import { contactIconMap } from '@/backend/fields/non-localized/icons/utils/contact-icon-mapper'
 import { ContactIconName } from '@/backend/fields/non-localized/icons/utils/contact-icons-options'
-import { iconMap } from '@/backend/fields/non-localized/icons/utils/icon-mapper'
+import { getText } from '@/frontend/utils/normalize'
 import { AboutUsBlock } from '@/payload-types'
 import Link from 'next/link'
 
@@ -19,24 +19,19 @@ function getContactHref(icon: ContactIconName, value: string): string {
   }
 }
 
-export default function AboutSection({ heading, content, contacts }: AboutUsBlock) {
+export default function AboutSection({ id, heading, content, contacts }: AboutUsBlock) {
   return (
-    <section>
+    <section id={getText(id)}>
       <div className="flex items-center">
         <h1 className="max-w-[20ch]">{heading}</h1>
       </div>
-
-      <div id="about-section" className="grid gap-10 -mt-8 lg:mt-0 lg:grid-cols-5">
+      <div className="grid gap-10 lg:grid-cols-5">
         <div className="col-span-2 flex flex-col gap-6">
           {contacts?.map((item, index) => {
             const iconName = item.icon as ContactIconName
             const Icon = contactIconMap[iconName]
 
-            console.log('iconName', iconName)
-            console.log('Icon', Icon)
-
             if (!Icon || !item.value) return null
-
             const href = getContactHref(iconName, item.value)
 
             return (
@@ -55,11 +50,12 @@ export default function AboutSection({ heading, content, contacts }: AboutUsBloc
             )
           })}
         </div>
-
-        <div
-          className="col-span-3 flex flex-col gap-6"
-          dangerouslySetInnerHTML={{ __html: content || '' }}
-        />
+        {content && (
+          <div
+            className="col-span-3 flex flex-col gap-6"
+            dangerouslySetInnerHTML={{ __html: content }}
+          />
+        )}
       </div>
     </section>
   )

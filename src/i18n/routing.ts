@@ -22,5 +22,25 @@ export const routing = defineRouting({
       sl: '/novice/[...slug]',
       en: '/news/[...slug]',
     },
+
+    '/dogodki': {
+      sl: '/dogodki',
+      en: '/events',
+    },
+
+    '/dogodki/[...slug]': {
+      sl: '/dogodki/[...slug]',
+      en: '/events/[...slug]',
+    },
+
+    '/nagrade': {
+      sl: '/dogodki',
+      en: '/awards',
+    },
+
+    '/nagrade/[...slug]': {
+      sl: '/dogodki/[...slug]',
+      en: '/awards/[...slug]',
+    },
   },
 })

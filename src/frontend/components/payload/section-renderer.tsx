@@ -5,6 +5,7 @@ import { Locale } from '@/i18n/i18n.config'
 
 interface RenderSectionProps {
   section: any
+  doc?: any
   searchParams: Awaited<SearchParams>
   locale: Locale
   isLivePreview: boolean
@@ -14,6 +15,7 @@ interface RenderSectionProps {
 
 export const renderSection = ({
   section,
+  doc,
   searchParams,
   locale,
   isLivePreview,
@@ -22,6 +24,7 @@ export const renderSection = ({
 }: RenderSectionProps): ReactElement | null => {
   const sectionProps = {
     ...section,
+    doc,
     locale,
     searchParams,
     id: section.id ?? fallbackKey,

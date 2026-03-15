@@ -29,13 +29,14 @@ export default async function Events({ heading, description, locale }: EventsPro
       excerpt: v.excerpt || '',
       link: {
         label: 'Preberi več',
-        href: `/${locale}/novice/${v.slug}`,
+        href: `/${locale}/dogodki/${v.slug}`,
       },
     }
   })
 
   return (
     <CardCarouselSectionTwo
+      id={'events'}
       heading={getText(heading, 'Untitled')}
       description={getText(description)}
       cards={cards}

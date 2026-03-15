@@ -5,6 +5,7 @@ import { cn } from '@/frontend/lib/utils'
 import { getText, getImage } from '@/frontend/utils/normalize'
 
 export default function HomeHero({
+  id,
   heading,
   ['background-image']: backgroundImage,
 }: HomeHeroBlock) {
@@ -15,6 +16,7 @@ export default function HomeHero({
 
   return (
     <section
+      id={getText(id)}
       className={cn(
         'flex h-screen justify-end overflow-hidden px-0 py-18',
         !imageUrl && 'bg-secondary',
@@ -42,7 +44,6 @@ export default function HomeHero({
               {text}
             </p>
           ))}
-
           {items.map((text, i) => (
             <p
               key={`second-${i}`}
