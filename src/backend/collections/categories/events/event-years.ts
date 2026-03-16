@@ -1,4 +1,4 @@
-import { createText } from '@/backend/fields/non-localized/text/default-types/create-text'
+import { createText } from '@/backend/fields/field-types/text/base/create-text'
 import type { CollectionConfig } from 'payload'
 
 export const EventYears: CollectionConfig = {

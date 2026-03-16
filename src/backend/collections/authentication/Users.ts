@@ -1,4 +1,4 @@
-import { createRoles } from '@/backend/fields/non-localized/auth/create-roles'
+import { createRoles } from '@/backend/fields/field-types/select/auth/create-roles'
 import type { CollectionConfig } from 'payload'
 
 export const Users: CollectionConfig = {

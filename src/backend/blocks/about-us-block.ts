@@ -1,6 +1,6 @@
 import { Block } from 'payload'
 import { createHeading } from '../fields/non-localized/text/create-heading'
-import { createLexicalContent } from '../fields/non-localized/text/default-types/create-lexical-content'
+import { createLexicalContent } from '../fields/non-localized/text/base/create-lexical-content'
 import { createContacts } from '../fields/non-localized/contact/create-contacts'
 
 export const AboutUsBlock: Block = {

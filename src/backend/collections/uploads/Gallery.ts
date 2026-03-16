@@ -1,6 +1,6 @@
-import { createAlternativeText } from '@/backend/fields/non-localized/images/create-alternative-text'
 import type { CollectionConfig } from 'payload'
 import { isAdminOrEditor } from '../access-control/isAdminOrEditor'
+import { createAlternativeText } from '@/backend/fields/field-types/text/image/create-alternative-text'
 
 export const Gallery: CollectionConfig = {
   slug: 'gallery',

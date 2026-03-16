@@ -1,5 +1,5 @@
 import { Block } from 'payload'
-import { createLexicalContent } from '../fields/non-localized/text/default-types/create-lexical-content'
+import { createLexicalContent } from '../fields/non-localized/text/base/create-lexical-content'
 
 export const AboutEventBlock: Block = {
   slug: 'about-event-block',

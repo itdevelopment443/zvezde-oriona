@@ -1,17 +1,17 @@
-import { createExcerpt } from '@/backend/fields/non-localized/text/create-excerpt'
-import { createTitle } from '@/backend/fields/non-localized/text/create-title'
 import type { CollectionConfig } from 'payload'
 import { isAdminOrEditor } from '../access-control/isAdminOrEditor'
 import { createSlug } from '@/backend/fields/non-localized/text/create-slug'
-import { createFeaturedImage } from '@/backend/fields/non-localized/images/create-featured.image'
-import { createPublishedAt } from '@/backend/fields/non-localized/date/create-created-at'
-import { generateYear } from '@/backend/hooks/generate-year'
+import { generateYear } from '@/backend/hooks/payload/generate-year'
 import { WinnersBlock } from '@/backend/blocks/winners-block'
 import { AboutEventBlock } from '@/backend/blocks/about-event-block'
-import { createText } from '@/backend/fields/non-localized/text/default-types/create-text'
 import { SeperatorBlock } from '@/backend/blocks/seperator-block'
 import { GalleryBlock } from '@/backend/blocks/gallery-block'
 import { VideoBlock } from '@/backend/blocks/video-block'
+import { createPublishedAt } from '@/backend/fields/field-types/date/create-published-at'
+import { createFeaturedImage } from '@/backend/fields/field-types/images/create-featured-image'
+import { createText } from '@/backend/fields/field-types/text/base/create-text'
+import { createExcerpt } from '@/backend/fields/field-types/text/page/create-excerpt'
+import { createTitle } from '@/backend/fields/field-types/text/page/create-title'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -52,7 +52,7 @@ export const Events: CollectionConfig = {
     createTitle({ required: true, unique: true }),
     createExcerpt({ required: true }),
     createFeaturedImage(),
-    createText({ name: 'location', position: 'sidebar' }),
+    createText({ name: 'location', admin: { position: 'sidebar' } }),
     {
       name: 'sections',
       type: 'blocks',

@@ -157,10 +157,10 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   _order?: string | null;
-  'published-at': string;
-  slug: string;
-  title: string;
-  excerpt: string;
+  'published-at'?: string | null;
+  slug?: string | null;
+  title?: string | null;
+  excerpt?: string | null;
   'featured-image'?: (number | null) | Image;
   sections?:
     | (
@@ -189,7 +189,7 @@ export interface Page {
  */
 export interface Image {
   id: number;
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -207,7 +207,7 @@ export interface Image {
  * via the `definition` "HomeHeroBlock".
  */
 export interface HomeHeroBlock {
-  heading: string;
+  heading?: string | null;
   'background-image'?: (number | null) | Image;
   id?: string | null;
   blockName?: string | null;
@@ -227,7 +227,7 @@ export interface ExposedNewsBlock {
  * via the `definition` "EventsBlock".
  */
 export interface EventsBlock {
-  heading: string;
+  heading?: string | null;
   description?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -238,7 +238,7 @@ export interface EventsBlock {
  * via the `definition` "AwardsBlock".
  */
 export interface AwardsBlock {
-  heading: string;
+  heading?: string | null;
   description?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -249,11 +249,11 @@ export interface AwardsBlock {
  * via the `definition` "AboutUsBlock".
  */
 export interface AboutUsBlock {
-  heading: string;
+  heading?: string | null;
   contacts: {
     icon: 'Mail' | 'Phone' | 'MapPin' | 'Globe';
     target?: ('_self' | '_blank') | null;
-    value: string;
+    value?: string | null;
     id?: string | null;
   }[];
   'lexical-content'?: {
@@ -307,7 +307,7 @@ export interface LawBlock {
  * via the `definition` "NewsArchiveBlock".
  */
 export interface NewsArchiveBlock {
-  heading: string;
+  heading?: string | null;
   description?: string | null;
   id?: string | null;
   blockName?: string | null;
@@ -319,11 +319,11 @@ export interface NewsArchiveBlock {
  */
 export interface News {
   id: number;
-  'published-at': string;
-  slug: string;
+  'published-at'?: string | null;
+  slug?: string | null;
   'exposed-news'?: boolean | null;
-  title: string;
-  excerpt: string;
+  title?: string | null;
+  excerpt?: string | null;
   'featured-image'?: (number | null) | Image;
   sections?: (ContentBlock | ImagesBlock)[] | null;
   updatedAt: string;
@@ -361,7 +361,6 @@ export interface ContentBlock {
  * via the `definition` "ImagesBlock".
  */
 export interface ImagesBlock {
-  'number-of-columns'?: ('1' | '2' | '3' | '4') | null;
   images?:
     | {
         image?: (number | null) | Image;
@@ -378,10 +377,10 @@ export interface ImagesBlock {
  */
 export interface Event {
   id: number;
-  'published-at': string;
-  slug: string;
-  title: string;
-  excerpt: string;
+  'published-at'?: string | null;
+  slug?: string | null;
+  title?: string | null;
+  excerpt?: string | null;
   'featured-image'?: (number | null) | Image;
   location?: string | null;
   sections?: (AboutEventBlock | SeperatorBlock | WinnersBlock | GalleryBlock | VideoBlock)[] | null;
@@ -477,10 +476,10 @@ export interface VideoBlock {
 export interface Award {
   id: number;
   _order?: string | null;
-  'published-at': string;
-  slug: string;
-  title: string;
-  excerpt: string;
+  'published-at'?: string | null;
+  slug?: string | null;
+  title?: string | null;
+  excerpt?: string | null;
   'featured-image'?: (number | null) | Image;
   sections?: AwardsHeroBlock[] | null;
   updatedAt: string;
@@ -494,7 +493,7 @@ export interface Award {
  */
 export interface AwardsHeroBlock {
   heading?: string | null;
-  description: string;
+  description?: string | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'awards-hero-block';
@@ -505,7 +504,7 @@ export interface AwardsHeroBlock {
  */
 export interface Gallery {
   id: number;
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -524,7 +523,7 @@ export interface Gallery {
  */
 export interface Document {
   id: number;
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -543,7 +542,7 @@ export interface Document {
  */
 export interface EventYear {
   id: number;
-  year: string;
+  year?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -553,7 +552,7 @@ export interface EventYear {
  */
 export interface NewsYear {
   id: number;
-  year: string;
+  year?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -1084,7 +1083,6 @@ export interface ContentBlockSelect<T extends boolean = true> {
  * via the `definition` "ImagesBlock_select".
  */
 export interface ImagesBlockSelect<T extends boolean = true> {
-  'number-of-columns'?: T;
   images?:
     | T
     | {

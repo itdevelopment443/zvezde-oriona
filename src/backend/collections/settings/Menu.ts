@@ -1,12 +1,12 @@
-import { createTitle } from "@/backend/fields/non-localized/text/create-title";
-import type { CollectionConfig } from "payload";
-import { isAdminOrEditor } from "../access-control/isAdminOrEditor";
+import type { CollectionConfig } from 'payload'
+import { isAdminOrEditor } from '../access-control/isAdminOrEditor'
+import { createTitle } from '@/backend/fields/field-types/text/page/create-title'
 
 export const Menus: CollectionConfig = {
-  slug: "menus",
+  slug: 'menus',
   admin: {
-    useAsTitle: "title",
-    group: "Settings",
+    useAsTitle: 'title',
+    group: 'Settings',
   },
   access: {
     read: () => true,
@@ -19,4 +19,4 @@ export const Menus: CollectionConfig = {
     maxPerDoc: 20,
   },
   fields: [createTitle({ required: true, unique: true })],
-};
+}
