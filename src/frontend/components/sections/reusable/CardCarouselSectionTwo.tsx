@@ -7,6 +7,7 @@ import {
   CarouselProgress,
 } from '@/frontend/components/ui/carousel'
 import { cn } from '@/frontend/lib/utils'
+import { getText } from '@/frontend/utils/normalize'
 import { Card } from '@/types/card-types'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -61,7 +62,7 @@ export default function CardCarouselSectionTwo({
                 'lg:basis-1/3': cards.length < 4,
               })}
             >
-              <Link href={item.link.href} key={index}>
+              <Link href={getText(item.link?.href)} key={index}>
                 <div className="flex flex-col items-start gap-8 py-6 ">
                   <div className="w-full">
                     <Image

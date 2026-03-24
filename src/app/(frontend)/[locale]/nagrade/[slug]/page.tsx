@@ -5,10 +5,10 @@ import configPromise from '@payload-config'
 import { renderSection } from '@/frontend/components/payload/section-renderer'
 import { notFound } from 'next/navigation'
 import { RefreshPageOnSave } from '@/frontend/components/payload/refresh-page'
-import EventsHero from '@/frontend/components/sections/events/EventsHero'
-import { eventsSectionMap } from '@/frontend/constants/events-sections'
+import { awardsSectionMap } from '@/frontend/constants/awards-sections'
 
-export default async function AwardsBySlug({
+
+export default async function AwardBySlug({
   params,
   searchParams,
 }: {
@@ -20,19 +20,17 @@ export default async function AwardsBySlug({
   const isLivePreview = resolvedSearchParams.livePreview === 'true'
   const data = await queryPageData({ locale, slug })
 
-  if (!data) {
-    notFound()
-  }
+  if (!data) notFound()
 
   return (
     <main>
       {isLivePreview && <RefreshPageOnSave />}
-      <EventsHero {...data} />
+      {/* Blocks (AwardsHeroBlock etc.) */}
       {data.sections?.map((section, index) =>
         renderSection({
           section,
           doc: data,
-          sectionMap: eventsSectionMap,
+          sectionMap: awardsSectionMap,
           locale,
           isLivePreview,
           searchParams: resolvedSearchParams,
@@ -47,22 +45,16 @@ const queryPageData = cache(async ({ locale, slug }: QueryPageDataProps) => {
   try {
     const payload = await getPayload({ config: configPromise })
 
-    const whereCondition = {
-      slug: { equals: slug },
-    }
-
     const result = await payload.find({
-      collection: 'events',
+      collection: 'awards',
       locale: locale,
       limit: 1,
-      where: { and: [whereCondition] },
+      where: { slug: { equals: slug } },
     })
 
-    const data = result.docs?.[0] || null
-
-    return data
+    return result.docs?.[0] ?? null
   } catch (error) {
-    console.error('Error fetching page data:', error)
+    console.error('Error fetching award data:', error)
     return null
   }
 })

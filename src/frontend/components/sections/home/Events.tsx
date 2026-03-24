@@ -29,7 +29,7 @@ export default async function Events({ heading, description, locale }: EventsPro
       excerpt: v.excerpt || '',
       link: {
         label: 'Preberi več',
-        href: `/${locale}/dogodki/${v.slug}`,
+        href: `/${locale}/dogodki/${v.year}`,
       },
     }
   })

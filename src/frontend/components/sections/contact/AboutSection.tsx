@@ -1,5 +1,5 @@
-import { contactIconMap } from '@/backend/fields/non-localized/icons/utils/contact-icon-mapper'
-import { ContactIconName } from '@/backend/fields/non-localized/icons/utils/contact-icons-options'
+import { contactIconMap } from '@/backend/fields/field-types/select/icons/utils/contact-icon-mapper'
+import { ContactIconName } from '@/backend/fields/field-types/select/icons/utils/contact-icons-options'
 import { getText } from '@/frontend/utils/normalize'
 import { AboutUsBlock } from '@/payload-types'
 import Link from 'next/link'

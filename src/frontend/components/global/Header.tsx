@@ -1,43 +1,80 @@
-import { ChevronDown, Menu } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Menu } from 'lucide-react'
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../ui/sheet'
-import { cn } from '@/frontend/lib/utils'
-import { mainHeaderMenu } from '@/frontend/constants/menus'
+import { NavDropdown, MobileNavItem, NavItem } from './NavDropdown'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 
-export default function Header() {
+interface HeaderProps {
+  locale: Promise<{ locale: string }>
+}
+
+export default async function Header({ locale: localePromise }: HeaderProps) {
+  const { locale } = await localePromise
+
+  const payload = await getPayload({ config: configPromise })
+
+  const [awardsResult, eventsResult] = await Promise.all([
+    payload.find({
+      collection: 'awards',
+      locale: locale as 'sl' | 'en',
+      sort: '-title',
+      limit: 20,
+    }),
+    payload.find({ collection: 'events', locale: locale as 'sl' | 'en', sort: '-year', limit: 20 }),
+  ])
+
+  const navItems: NavItem[] = [
+    {
+      label: 'Podelitve',
+      href: `/${locale}/#dogodki`,
+      subMenu: eventsResult.docs.map((event) => ({
+        label: event.year ?? String(event.year),
+        href: `/${locale}/dogodki/${event.year}`,
+      })),
+    },
+    {
+      label: 'Nagrade',
+      href: `/${locale}/#nagrade`,
+      subMenu: awardsResult.docs.map((award) => ({
+        label: award.title ?? '',
+        href: `/${locale}/nagrade/${award.slug}`,
+      })),
+    },
+    {
+      label: 'Novice',
+      href: `/${locale}/novice`,
+    },
+    {
+      label: 'O nas',
+      href: `/${locale}/o-nas`,
+    },
+  ]
+
   return (
     <header className="fixed top-0 z-10 w-full flex items-center justify-between bg-primary py-2 px-8 lg:px-16">
       <div className="w-20">
-        <Link href={'/'}>
-          <div>
-            <Image src="/cgp/logo.svg" className="h-20" height={100} width={100} alt="Logo" />
-          </div>
+        <Link href={`/${locale}`}>
+          <Image src="/cgp/logo.svg" className="h-20" height={100} width={100} alt="Logo" />
         </Link>
       </div>
-      {/* Computer */}
+
+      {/* Desktop */}
       <nav className="hidden lg:block">
-        <ol className=" flex gap-6">
-          {mainHeaderMenu.map((item, index) => (
-            <li className={'flex items-center gap-2'} key={index}>
-              <Link className=" text-lg uppercase font-medium" href={item.href}>
-                {item.label}
-              </Link>
-              <ChevronDown
-                strokeWidth={1}
-                className={cn('flex items-center gap-2', {
-                  hidden: !item.subMenu,
-                })}
-              />
-            </li>
+        <ol className="flex gap-6">
+          {navItems.map((item, index) => (
+            <NavDropdown key={index} item={item} />
           ))}
         </ol>
       </nav>
+
       <div className="hidden lg:block">
-        <Link href={'aipa.si'}>
-          <Image src={'/cgp/aipa-logo-white.png'} height={50} width={50} alt="Logo" />
+        <Link href="https://aipa.si">
+          <Image src="/cgp/aipa-logo-white.png" height={50} width={50} alt="AIPA Logo" />
         </Link>
       </div>
+
       {/* Mobile */}
       <div className="lg:hidden">
         <Sheet>
@@ -47,23 +84,16 @@ export default function Header() {
             </button>
           </SheetTrigger>
           <SheetContent side="right" className="bg-primary text-white w-full px-8 py-20 z-9999">
-            <SheetTitle className=" hidden"></SheetTitle>
+            <SheetTitle className="hidden" />
             <nav>
               <ol className="flex flex-col gap-6">
-                {mainHeaderMenu.map((item, index) => (
-                  <li key={index} className="flex flex-col gap-2">
-                    <Link
-                      href={item.href}
-                      className="text-lg uppercase font-medium flex items-center justify-between"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
+                {navItems.map((item, index) => (
+                  <MobileNavItem key={index} item={item} />
                 ))}
               </ol>
               <div className="mt-10">
-                <Link href={'https://aipa.si'}>
-                  <Image src={'/cgp/aipa-logo-white.png'} height={50} width={50} alt="AIPA Logo" />
+                <Link href="https://aipa.si">
+                  <Image src="/cgp/aipa-logo-white.png" height={50} width={50} alt="AIPA Logo" />
                 </Link>
               </div>
             </nav>

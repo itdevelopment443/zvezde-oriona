@@ -1,5 +1,5 @@
 import { generateSlugOnCreate, generateSlugOnSave } from '@/backend/hooks/payload/format-slug'
-import { createText } from '../base/create-text'
+import { createText, type TextProps } from '../base/create-text'
 
 type SlugProps = Omit<Parameters<typeof createText>[0], 'name' | 'unique'> & {
   name?: string
@@ -34,4 +34,4 @@ export const createSlug = ({
         ...(props.hooks?.beforeChange || []),
       ],
     },
-  })
+  } as TextProps)

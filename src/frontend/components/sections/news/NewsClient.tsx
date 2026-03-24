@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Card } from '@/types/card-types'
 import { Button } from '../../ui/button'
 import Link from 'next/link'
+import { getText } from '@/frontend/utils/normalize'
 
 interface NewsArchiveClientProps {
   items: Card[]
@@ -34,7 +35,7 @@ export default function NewsArchiveClient({
     <div>
       <div className="grid lg:grid-cols-3 lg:gap-6">
         {items.map((item, index) => (
-          <Link key={index} href={item.link.href}>
+          <Link key={index} href={getText(item.link?.href)}>
             <div className="w-full">
               <div className="flex flex-col items-start">
                 <div className="w-full">

@@ -1,14 +1,14 @@
 import type { CollectionConfig } from 'payload'
 import { isAdminOrEditor } from '../access-control/isAdminOrEditor'
-import { createSlug } from '@/backend/fields/non-localized/text/create-slug'
-import { createExposedContent } from '@/backend/fields/non-localized/layout/create-exposed-content'
+import { createSlug } from '@/backend/fields/field-types/text/page/create-slug'
+import { createExposedContent } from '@/backend/fields/field-types/checkbox/layout/create-exposed-content'
 import { ContentBlock } from '@/backend/blocks/content-block'
 import { ImagesBlock } from '@/backend/blocks/images-block'
 import { generateYear } from '@/backend/hooks/payload/generate-year'
 import { createPublishedAt } from '@/backend/fields/field-types/date/create-published-at'
-import { createFeaturedImage } from '@/backend/fields/field-types/images/create-featured-image'
 import { createExcerpt } from '@/backend/fields/field-types/text/page/create-excerpt'
 import { createTitle } from '@/backend/fields/field-types/text/page/create-title'
+import { createFeaturedImage } from '@/backend/fields/field-types/uploads/create-featured-image'
 
 export const News: CollectionConfig = {
   slug: 'news',
@@ -44,15 +44,16 @@ export const News: CollectionConfig = {
   trash: true,
   enableQueryPresets: true,
   fields: [
-    createPublishedAt(),
-    createSlug({ addRandomNumber: true }),
+    createPublishedAt({ required: true }),
+    createSlug({ addRandomNumber: true, localized: true }),
     createExposedContent({ label: 'Expose News', name: 'exposed-news' }),
-    createTitle({ required: true, unique: true }),
-    createExcerpt({ required: true }),
+    createTitle({ required: true, unique: true, localized: true }),
+    createExcerpt({ required: true, localized: true }),
     createFeaturedImage(),
     {
       name: 'sections',
       type: 'blocks',
+      localized: true,
       blocks: [ContentBlock, ImagesBlock],
     },
   ],

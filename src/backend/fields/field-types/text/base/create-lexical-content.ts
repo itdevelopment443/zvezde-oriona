@@ -1,17 +1,21 @@
-import type { Field } from 'payload'
+import type { Field, RichTextField } from 'payload'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { capitalize, removeSeparators } from '@/backend/utils/general/text-formater'
 import { allowAdminEditorAccess } from '@/backend/utils/payload/fields/access/allow-admin-editor-access'
 import { createAdminCondition } from '@/backend/utils/payload/fields/conditions/create-admin-condition'
 import { convertLexical } from '@/backend/utils/payload/fields/converters/convert-lexical'
 
-type LexicalContentField = Extract<Field, { type: 'richText' }>
-type LexicalContentProps = Omit<LexicalContentField, 'name' | 'type'> & {
-  name?: string
-  convertedName?: string
+type BaseProps = {
   conditionField?: string
   conditionValue?: string | number | boolean
 }
+
+export type LexicalContentReturn = Extract<RichTextField, { type: 'richText' }>
+export type LexicalContentProps = Omit<LexicalContentReturn, 'name' | 'type'> &
+  BaseProps & {
+    name?: string
+    convertedName?: string
+  }
 
 export const createLexicalContent = ({
   name = 'lexical-content',
@@ -20,7 +24,7 @@ export const createLexicalContent = ({
   conditionValue,
   ...props
 }: LexicalContentProps = {}): Field[] => {
-  const field: LexicalContentField = {
+  const field: LexicalContentReturn = ({
     name,
     type: 'richText',
     label: removeSeparators(capitalize(convertedName)),
@@ -36,7 +40,7 @@ export const createLexicalContent = ({
       condition: createAdminCondition(conditionField, conditionValue),
       ...props.admin,
     },
-  }
+  }) as LexicalContentReturn
 
   const converterField = convertLexical({
     fieldName: name,

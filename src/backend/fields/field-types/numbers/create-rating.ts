@@ -1,5 +1,5 @@
 import { createIntegerRangeValidation } from '@/backend/utils/payload/fields/validation/integer-rate-validation'
-import { createNumber } from './base/create-number'
+import { createNumber, type NumberProps } from './base/create-number'
 
 type RatingProps = Omit<Parameters<typeof createNumber>[0], 'name' | 'validate'> & {
   name?: string
@@ -23,4 +23,4 @@ export const createRating = ({
       max,
       label: 'Rating',
     }),
-  })
+  } as NumberProps)

@@ -1,4 +1,4 @@
-import { createSelect } from '../base/create-select'
+import { createSelect, type SelectProps } from '../base/create-select'
 import type { Option } from 'payload'
 
 type LinkTypeProps = Omit<Parameters<typeof createSelect>[0], 'name' | 'options'> & {
@@ -23,4 +23,4 @@ export const createLinkType = ({
     defaultValue,
     options,
     ...props,
-  })
+  } as SelectProps)

@@ -18,5 +18,5 @@ export const Menus: CollectionConfig = {
     drafts: true,
     maxPerDoc: 20,
   },
-  fields: [createTitle({ required: true, unique: true })],
+  fields: [createTitle({ required: true, unique: true, localized: true })],
 }

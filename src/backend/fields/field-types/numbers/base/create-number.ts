@@ -2,37 +2,44 @@ import { allowAdminEditorAccess } from '@/backend/utils/payload/fields/access/al
 import { createAdminCondition } from '@/backend/utils/payload/fields/conditions/create-admin-condition'
 import type { NumberField } from 'payload'
 
-type GenericNumberField = Extract<NumberField, { type: 'number'; hasMany?: false }>
-type GenericNumberProps = Omit<GenericNumberField, 'type' | 'hasMany'> & {
-  name: string
+type NumberFieldSingle = Extract<NumberField, { type: 'number'; hasMany?: false }>
+type NumberFieldMany = Extract<NumberField, { type: 'number'; hasMany: true }>
+
+type BaseProps = {
   conditionField?: string
   conditionValue?: string | number | boolean
 }
 
+export type NumberPropsSingle = Omit<NumberFieldSingle, 'type'> & BaseProps
+export type NumberPropsMany = Omit<NumberFieldMany, 'type'> & BaseProps
+
+export type NumberProps = NumberPropsSingle | NumberPropsMany
+export type NumberReturn = NumberFieldSingle | NumberFieldMany
+
 export const createNumber = ({
-  name,
+  conditionField,
+  conditionValue,
+  hasMany,
   min = 0,
   max = 2000,
   defaultValue = 5,
-  conditionField,
-  conditionValue,
   required = true,
   ...props
-}: GenericNumberProps): GenericNumberField => ({
-  name,
-  type: 'number',
-  hasMany: false,
-  min,
-  max,
-  defaultValue,
-  required,
-  ...props,
-  access: {
-    ...allowAdminEditorAccess(),
-    ...props.access,
-  },
-  admin: {
-    condition: createAdminCondition(conditionField, conditionValue),
-    ...props.admin,
-  },
-})
+}: NumberProps): NumberReturn =>
+  ({
+    type: 'number',
+    hasMany: hasMany ?? false,
+    min,
+    max,
+    defaultValue,
+    required,
+    ...props,
+    access: {
+      ...allowAdminEditorAccess(),
+      ...props.access,
+    },
+    admin: {
+      condition: createAdminCondition(conditionField, conditionValue),
+      ...props.admin,
+    },
+  }) as NumberReturn

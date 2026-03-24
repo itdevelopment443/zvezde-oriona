@@ -1,6 +1,6 @@
 import type { Option } from 'payload'
-import { isAdmin, Role } from '../../../../utils/payload/fields/access/role-checker'
-import { createSelect } from '../base/create-select'
+import { Role } from '../../../../utils/payload/fields/access/role-checker'
+import { createSelect, type SelectProps } from '../base/create-select'
 
 type RolesProps = Omit<Parameters<typeof createSelect>[0], 'name' | 'options'> & {
   additionalRoles?: Role[]
@@ -18,4 +18,4 @@ export const createRoles = ({ additionalRoles = [], required = true, ...props }:
     options: roleOptions(additionalRoles),
     required,
     ...props,
-  })
+  } as SelectProps)

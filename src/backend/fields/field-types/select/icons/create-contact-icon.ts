@@ -1,4 +1,4 @@
-import { createSelect } from '../base/create-select'
+import { createSelect, type SelectProps } from '../base/create-select'
 import { contactIconOptions } from './utils/contact-icons-options'
 
 type ContactIconProps = Omit<
@@ -19,4 +19,4 @@ export const createContactIcon = ({
     required,
     options: contactIconOptions,
     ...props,
-  })
+  } as SelectProps)

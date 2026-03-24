@@ -6,6 +6,7 @@ import { Locale } from '@/i18n/i18n.config'
 interface RenderSectionProps {
   section: any
   doc?: any
+  year?: string
   searchParams: Awaited<SearchParams>
   locale: Locale
   isLivePreview: boolean
@@ -18,6 +19,7 @@ export const renderSection = ({
   doc,
   searchParams,
   locale,
+  year,
   isLivePreview,
   sectionMap,
   fallbackKey,
@@ -26,6 +28,7 @@ export const renderSection = ({
     ...section,
     doc,
     locale,
+    year,
     searchParams,
     id: section.id ?? fallbackKey,
   }

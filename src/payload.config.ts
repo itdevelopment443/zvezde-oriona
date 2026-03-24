@@ -16,8 +16,9 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { News } from './backend/collections/posts/News'
 import { Events } from './backend/collections/posts/Events'
 import { Awards } from './backend/collections/posts/Awards'
+import { Winners } from './backend/collections/people/Winners'
+import { People } from './backend/collections/people/People'
 import { enableNodemailer } from './backend/plugins/enable-nodemailer'
-import { EventYears } from './backend/collections/categories/events/event-years'
 import { NewsYears } from './backend/collections/categories/news/news-years'
 
 const filename = fileURLToPath(import.meta.url)
@@ -29,6 +30,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      beforeNavLinks: ['@/backend/components/admin/AdminNavHeader#AdminNavHeader'],
+    },
   },
   globals: [],
   collections: [
@@ -36,10 +40,11 @@ export default buildConfig({
     News,
     Events,
     Awards,
+    Winners,
+    People,
     Gallery,
     Images,
     Documents,
-    EventYears,
     NewsYears,
     Users,
   ],
@@ -55,6 +60,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
+    migrationDir: path.resolve(dirname, 'migrations'),
   }),
   sharp,
   plugins: [enableRedirects(), enableImportAndExport()],

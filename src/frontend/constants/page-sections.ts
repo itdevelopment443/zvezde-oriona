@@ -6,7 +6,7 @@ import { Seperator } from '../components/sections/reusable/Seperator'
 import Events from '../components/sections/home/Events'
 import Awards from '../components/sections/home/Awards'
 import LawSection from '../components/sections/law/LawSection'
-import NewsArchive from '../components/sections/news/NewsArchive'
+import NewsArchive from '../components/sections/news/Archive/NewsArchive'
 
 export const sectionMap: SectionComponentMap = {
   'home-hero-block': HomeHero,

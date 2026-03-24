@@ -19,7 +19,7 @@ export const enableLocalization = (): LocalizationConfig => {
         code: 'sl',
       },
     ],
-    defaultLocale: 'en',
+    defaultLocale: 'sl',
     fallback: true,
   }
 }

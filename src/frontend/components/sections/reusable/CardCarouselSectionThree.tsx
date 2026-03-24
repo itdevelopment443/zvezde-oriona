@@ -9,6 +9,7 @@ import {
 import Link from 'next/link'
 import { cn } from '@/frontend/lib/utils'
 import { Card } from '@/types/card-types'
+import { getText } from '@/frontend/utils/normalize'
 
 interface CardCarouselThreeProps {
   id?: string | null
@@ -18,7 +19,7 @@ interface CardCarouselThreeProps {
 
 export default function CardCarouselSectionThree({ id, cards, className }: CardCarouselThreeProps) {
   return (
-    <section id={id || ''} className={cn('px-0 py-0', className)}>
+    <section id={getText(id)} className={cn('px-0 py-0', className)}>
       <Carousel
         opts={{
           loop: true,
@@ -40,8 +41,8 @@ export default function CardCarouselSectionThree({ id, cards, className }: CardC
                   </div>
                   <p>{item.excerpt}</p>
                   <div className="flex justify-between w-full items-center">
-                    <Link href={item.link.href}>
-                      <Button size={'lg'}>{item.link.label}</Button>
+                    <Link href={getText(item.link?.href)}>
+                      <Button size={'lg'}>{getText(item.link?.label)}</Button>
                     </Link>
                     <div
                       className={cn(' flex gap-2', {

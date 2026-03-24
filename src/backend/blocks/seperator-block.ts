@@ -1,5 +1,5 @@
 import { Block } from 'payload'
-import { createGeneratedComponent } from '../fields/ui/create-generated-component'
+import { createGeneratedComponent } from '../fields/field-types/ui/create-generated-component'
 
 export const SeperatorBlock: Block = {
   slug: 'seperator-block',

@@ -1,10 +1,10 @@
 import { Block } from 'payload'
-import { createImages } from '../fields/non-localized/images/create-images'
-import { createNumberOfColumns } from '../fields/non-localized/layout/create-number-of-columns'
+import { createImages } from '../fields/field-types/arrays/images/create-images'
+import { createNumberOfColumns } from '../fields/field-types/select/layout/create-number-of-columns'
 
 export const ImagesBlock: Block = {
   slug: 'images-block',
   imageURL: '/sections/home-hero.png',
   interfaceName: 'ImagesBlock',
-  fields: [createImages({ name: 'images', fieldName: 'image' })],
+  fields: [createNumberOfColumns(), createImages({ name: 'images', fieldName: 'image' })],
 }

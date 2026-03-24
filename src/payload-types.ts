@@ -71,10 +71,11 @@ export interface Config {
     news: News;
     events: Event;
     awards: Award;
+    winners: Winner;
+    people: Person;
     gallery: Gallery;
     images: Image;
     documents: Document;
-    'event-years': EventYear;
     'news-years': NewsYear;
     users: User;
     redirects: Redirect;
@@ -93,10 +94,11 @@ export interface Config {
     news: NewsSelect<false> | NewsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     awards: AwardsSelect<false> | AwardsSelect<true>;
+    winners: WinnersSelect<false> | WinnersSelect<true>;
+    people: PeopleSelect<false> | PeopleSelect<true>;
     gallery: GallerySelect<false> | GallerySelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
-    'event-years': EventYearsSelect<false> | EventYearsSelect<true>;
     'news-years': NewsYearsSelect<false> | NewsYearsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -157,7 +159,7 @@ export interface UserAuthOperations {
 export interface Page {
   id: number;
   _order?: string | null;
-  'published-at'?: string | null;
+  'published-at'?: string;
   slug?: string | null;
   title?: string | null;
   excerpt?: string | null;
@@ -250,12 +252,14 @@ export interface AwardsBlock {
  */
 export interface AboutUsBlock {
   heading?: string | null;
-  contacts: {
-    icon: 'Mail' | 'Phone' | 'MapPin' | 'Globe';
-    target?: ('_self' | '_blank') | null;
-    value?: string | null;
-    id?: string | null;
-  }[];
+  contacts?:
+    | {
+        icon?: ('Mail' | 'Phone' | 'MapPin' | 'Globe') | null;
+        target?: ('_self' | '_blank') | null;
+        value?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   'lexical-content'?: {
     root: {
       type: string;
@@ -319,7 +323,7 @@ export interface NewsArchiveBlock {
  */
 export interface News {
   id: number;
-  'published-at'?: string | null;
+  'published-at'?: string;
   slug?: string | null;
   'exposed-news'?: boolean | null;
   title?: string | null;
@@ -361,6 +365,7 @@ export interface ContentBlock {
  * via the `definition` "ImagesBlock".
  */
 export interface ImagesBlock {
+  'number-of-columns'?: ('1' | '2' | '3' | '4') | null;
   images?:
     | {
         image?: (number | null) | Image;
@@ -377,13 +382,46 @@ export interface ImagesBlock {
  */
 export interface Event {
   id: number;
-  'published-at'?: string | null;
+  'published-at'?: string;
   slug?: string | null;
+  year?:
+    | (
+        | '2026'
+        | '2025'
+        | '2024'
+        | '2023'
+        | '2022'
+        | '2021'
+        | '2020'
+        | '2019'
+        | '2018'
+        | '2017'
+        | '2016'
+        | '2015'
+        | '2014'
+        | '2013'
+        | '2012'
+        | '2011'
+        | '2010'
+      )
+    | null;
   title?: string | null;
   excerpt?: string | null;
   'featured-image'?: (number | null) | Image;
   location?: string | null;
-  sections?: (AboutEventBlock | SeperatorBlock | WinnersBlock | GalleryBlock | VideoBlock)[] | null;
+  sections?:
+    | (
+        | AboutEventBlock
+        | {
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'seperator-block';
+          }
+        | WinnersBlock
+        | GalleryBlock
+        | VideoBlock
+      )[]
+    | null;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -432,15 +470,6 @@ export interface AboutEventBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "SeperatorBlock".
- */
-export interface SeperatorBlock {
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'seperator-block';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "WinnersBlock".
  */
 export interface WinnersBlock {
@@ -476,12 +505,12 @@ export interface VideoBlock {
 export interface Award {
   id: number;
   _order?: string | null;
-  'published-at'?: string | null;
+  'published-at'?: string;
   slug?: string | null;
   title?: string | null;
   excerpt?: string | null;
   'featured-image'?: (number | null) | Image;
-  sections?: AwardsHeroBlock[] | null;
+  sections?: (AwardsHeroBlock | SeperatorBlock | AwardWinnerBlock)[] | null;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -497,6 +526,68 @@ export interface AwardsHeroBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'awards-hero-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SeperatorBlock".
+ */
+export interface SeperatorBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'seperator-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AwardWinnerBlock".
+ */
+export interface AwardWinnerBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'award-winner-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "winners".
+ */
+export interface Winner {
+  id: number;
+  person?: (number | null) | Person;
+  award?: (number | null) | Award;
+  year?:
+    | (
+        | '2026'
+        | '2025'
+        | '2024'
+        | '2023'
+        | '2022'
+        | '2021'
+        | '2020'
+        | '2019'
+        | '2018'
+        | '2017'
+        | '2016'
+        | '2015'
+        | '2014'
+        | '2013'
+        | '2012'
+        | '2011'
+        | '2010'
+      )
+    | null;
+  description?: string | null;
+  image?: (number | null) | Image;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people".
+ */
+export interface Person {
+  id: number;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -538,16 +629,6 @@ export interface Document {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "event-years".
- */
-export interface EventYear {
-  id: number;
-  year?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "news-years".
  */
 export interface NewsYear {
@@ -562,7 +643,7 @@ export interface NewsYear {
  */
 export interface User {
   id: number;
-  role: 'admin' | 'editor' | 'user';
+  role?: ('admin' | 'editor' | 'user') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -814,6 +895,14 @@ export interface PayloadLockedDocument {
         value: number | Award;
       } | null)
     | ({
+        relationTo: 'winners';
+        value: number | Winner;
+      } | null)
+    | ({
+        relationTo: 'people';
+        value: number | Person;
+      } | null)
+    | ({
         relationTo: 'gallery';
         value: number | Gallery;
       } | null)
@@ -824,10 +913,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'documents';
         value: number | Document;
-      } | null)
-    | ({
-        relationTo: 'event-years';
-        value: number | EventYear;
       } | null)
     | ({
         relationTo: 'news-years';
@@ -1083,6 +1168,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
  * via the `definition` "ImagesBlock_select".
  */
 export interface ImagesBlockSelect<T extends boolean = true> {
+  'number-of-columns'?: T;
   images?:
     | T
     | {
@@ -1099,6 +1185,7 @@ export interface ImagesBlockSelect<T extends boolean = true> {
 export interface EventsSelect<T extends boolean = true> {
   'published-at'?: T;
   slug?: T;
+  year?: T;
   title?: T;
   excerpt?: T;
   'featured-image'?: T;
@@ -1171,6 +1258,8 @@ export interface AwardsSelect<T extends boolean = true> {
     | T
     | {
         'awards-hero-block'?: T | AwardsHeroBlockSelect<T>;
+        'seperator-block'?: T | SeperatorBlockSelect<T>;
+        'award-winner-block'?: T | AwardWinnerBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1186,6 +1275,36 @@ export interface AwardsHeroBlockSelect<T extends boolean = true> {
   description?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AwardWinnerBlock_select".
+ */
+export interface AwardWinnerBlockSelect<T extends boolean = true> {
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "winners_select".
+ */
+export interface WinnersSelect<T extends boolean = true> {
+  person?: T;
+  award?: T;
+  year?: T;
+  description?: T;
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people_select".
+ */
+export interface PeopleSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1240,15 +1359,6 @@ export interface DocumentsSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "event-years_select".
- */
-export interface EventYearsSelect<T extends boolean = true> {
-  year?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1490,10 +1600,11 @@ export interface TaskCreateCollectionExport {
       | 'news'
       | 'events'
       | 'awards'
+      | 'winners'
+      | 'people'
       | 'gallery'
       | 'images'
       | 'documents'
-      | 'event-years'
       | 'news-years'
       | 'users'
       | 'redirects'

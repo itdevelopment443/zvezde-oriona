@@ -1,45 +1,31 @@
-import { createAdminCondition } from '@/backend/utils/payload/fields/conditions/create-admin-condition'
-import type { ArrayField } from 'payload'
-import { createSelect } from '../../select/base/create-select'
-import { createNumber } from '../../numbers/base/create-number'
+import { createArray, type ArrayProps, type ArrayReturn } from '../base/create-array'
+import { createSelect, type SelectProps } from '../../select/base/create-select'
+import { createNumber, type NumberProps } from '../../numbers/base/create-number'
 
-type PriceField = Extract<ArrayField, { type: 'array' }>
-
-interface PriceProps extends Omit<PriceField, 'type' | 'fields' | 'name'> {
+type PriceProps = Omit<ArrayProps, 'name' | 'fields'> & {
   name?: string
-  conditionField?: string
-  conditionValue?: string | number | boolean
 }
 
-export const createPrice = ({
-  name = 'price',
-  conditionField,
-  conditionValue,
-  ...props
-}: PriceProps = {}): PriceField => ({
-  name,
-  type: 'array',
-  maxRows: 1,
-  fields: [
-    createNumber({
-      name: 'amount',
-      min: 0,
-      defaultValue: 0,
-      admin: { step: 0.01 },
-    }),
-    createSelect({
-      name: 'currency',
-      label: 'Currency',
-      defaultValue: 'EUR',
-      options: [
-        { label: 'Euro (€)', value: 'EUR' },
-        { label: 'Dollar ($)', value: 'USD' },
-      ],
-    }),
-  ],
-  ...props,
-  admin: {
-    condition: createAdminCondition(conditionField, conditionValue),
-    ...props.admin,
-  },
-})
+export const createPrice = ({ name = 'price', ...props }: PriceProps = {}): ArrayReturn =>
+  createArray({
+    name,
+    maxRows: 1,
+    fields: [
+      createNumber({
+        name: 'amount',
+        min: 0,
+        defaultValue: 0,
+        admin: { step: 0.01 },
+      } as NumberProps),
+      createSelect({
+        name: 'currency',
+        label: 'Currency',
+        defaultValue: 'EUR',
+        options: [
+          { label: 'Euro (€)', value: 'EUR' },
+          { label: 'Dollar ($)', value: 'USD' },
+        ],
+      } as SelectProps),
+    ],
+    ...props,
+  })

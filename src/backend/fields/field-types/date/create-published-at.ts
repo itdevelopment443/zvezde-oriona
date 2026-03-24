@@ -7,7 +7,9 @@ type PublishedAtProps = Omit<Parameters<typeof createDate>[0], 'name' | 'default
 export const createPublishedAt = ({ name = 'published-at', ...props }: PublishedAtProps = {}) =>
   createDate({
     name,
+    required: true,
     defaultValue: () => new Date(),
+    typescriptSchema: [() => ({ type: 'string' })],
     admin: {
       position: 'sidebar',
       ...props.admin,

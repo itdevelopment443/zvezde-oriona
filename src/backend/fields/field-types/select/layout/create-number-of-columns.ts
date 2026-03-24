@@ -1,5 +1,5 @@
 import type { Option } from 'payload'
-import { createSelect } from '../base/create-select'
+import { createSelect, type SelectProps } from '../base/create-select'
 
 type NumberOfColumnsProps = Omit<Parameters<typeof createSelect>[0], 'name' | 'options'> & {
   name?: string
@@ -24,4 +24,4 @@ export const createNumberOfColumns = ({
     options,
     defaultValue,
     ...props,
-  })
+  } as SelectProps)

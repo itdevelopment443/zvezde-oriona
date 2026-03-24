@@ -21,6 +21,7 @@ interface ReusableComboboxProps {
   className?: string
   inputClassName?: string
   itemClassName?: string
+  allowDeselect?: boolean
 }
 
 export default function ReusableCombobox({
@@ -32,16 +33,19 @@ export default function ReusableCombobox({
   className,
   inputClassName,
   itemClassName,
+  allowDeselect = false,
 }: ReusableComboboxProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const value = searchParams.get(queryKey) || defaultValue
+  const rawValue = searchParams.get(queryKey) ?? null
+  const value = rawValue ?? defaultValue ?? null
 
   const handleValueChange = (newValue: string | null) => {
     const params = new URLSearchParams(searchParams.toString())
-    if (newValue) {
-      params.set(queryKey, newValue)
+    const resolvedValue = allowDeselect && newValue === rawValue ? null : newValue
+    if (resolvedValue) {
+      params.set(queryKey, resolvedValue)
     } else {
       params.delete(queryKey)
     }
@@ -51,7 +55,12 @@ export default function ReusableCombobox({
   }
 
   return (
-    <Combobox items={options} value={value?.toString()} onValueChange={handleValueChange}>
+    <Combobox
+      key={value ?? '__empty__'}
+      items={options}
+      value={value?.toString() ?? ''}
+      onValueChange={handleValueChange}
+    >
       <ComboboxInput
         className={className}
         inputClassName={inputClassName}

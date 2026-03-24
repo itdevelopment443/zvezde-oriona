@@ -4,6 +4,7 @@ import { ComponentType } from 'react'
 export interface RouteParams {
   locale: Locale
   slug?: string
+  year?: string
   limit?: string
   offset?: string
 }
@@ -22,4 +23,5 @@ export type SectionComponentMap = Record<string, ComponentType<any>>
 export interface QueryPageDataProps {
   locale: Locale
   slug?: string
+  year?: string
 }

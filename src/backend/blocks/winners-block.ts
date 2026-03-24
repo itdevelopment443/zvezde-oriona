@@ -1,6 +1,6 @@
 import { Block } from 'payload'
-import { createGeneratedComponent } from '../fields/ui/create-generated-component'
-import { createHeading } from '../fields/non-localized/text/create-heading'
+import { createHeading } from '../fields/field-types/text/create-heading'
+import { createGeneratedComponent } from '../fields/field-types/ui/create-generated-component'
 
 export const WinnersBlock: Block = {
   slug: 'winners-block',

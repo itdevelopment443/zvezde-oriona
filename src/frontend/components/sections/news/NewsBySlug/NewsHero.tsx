@@ -11,7 +11,7 @@ export default function NewsHero({
   'published-at': publishedAt,
 }: NewsHeroProps) {
   const image = getImage(featuredImage)
-  const date = new Date(publishedAt)
+  const date = new Date(publishedAt!)
 
   return (
     <section className="flex flex-col gap-5">

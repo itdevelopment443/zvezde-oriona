@@ -1,6 +1,6 @@
 import { Block } from 'payload'
-import { createHeading } from '../fields/non-localized/text/create-heading'
-import { createDescription } from '../fields/non-localized/text/create-description'
+import { createDescription } from '../fields/field-types/text/create-description'
+import { createHeading } from '../fields/field-types/text/create-heading'
 
 export const AwardsBlock: Block = {
   slug: 'awards-block',

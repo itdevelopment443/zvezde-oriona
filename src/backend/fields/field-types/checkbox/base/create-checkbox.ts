@@ -2,25 +2,28 @@ import { allowAdminEditorAccess } from '@/backend/utils/payload/fields/access/al
 import { createAdminCondition } from '@/backend/utils/payload/fields/conditions/create-admin-condition'
 import type { CheckboxField } from 'payload'
 
-type GenericCheckboxField = Extract<CheckboxField, { type: 'checkbox' }>
-type GenericCheckboxProps = Omit<GenericCheckboxField, 'type'> & {
+type BaseProps = {
   conditionField?: string
   conditionValue?: string | number | boolean
 }
+
+export type CheckboxReturn = Extract<CheckboxField, { type: 'checkbox' }>
+export type CheckboxProps = Omit<CheckboxReturn, 'type'> & BaseProps
 
 export const createCheckbox = ({
   conditionField,
   conditionValue,
   ...props
-}: GenericCheckboxProps): GenericCheckboxField => ({
-  type: 'checkbox',
-  ...props,
-  access: {
-    ...allowAdminEditorAccess(),
-    ...props.access,
-  },
-  admin: {
-    condition: createAdminCondition(conditionField, conditionValue),
-    ...props.admin,
-  },
-})
+}: CheckboxProps): CheckboxReturn =>
+  ({
+    type: 'checkbox',
+    ...props,
+    access: {
+      ...allowAdminEditorAccess(),
+      ...props.access,
+    },
+    admin: {
+      condition: createAdminCondition(conditionField, conditionValue),
+      ...props.admin,
+    },
+  }) as CheckboxReturn

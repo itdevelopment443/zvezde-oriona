@@ -9,6 +9,7 @@ import {
 import Image from 'next/image'
 import { cn } from '@/frontend/lib/utils'
 import { Card } from '@/types/card-types'
+import { getText } from '@/frontend/utils/normalize'
 
 interface CardCarouselOneProps {
   id?: string | null
@@ -26,7 +27,7 @@ export default function CardCarouselSectionOne({
   className,
 }: CardCarouselOneProps) {
   return (
-    <section id={id || ''} className={cn('lg:pr-0 gap-6 lg:gap-8', className)}>
+    <section id={getText(id)} className={cn('lg:pr-0 gap-6 lg:gap-8', className)}>
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 ">
         <div className="flex gap-10 items-start">
           <div className="relative">
@@ -66,6 +67,11 @@ export default function CardCarouselSectionOne({
                     />
                   </div>
                   <div className="flex flex-col gap-3 lg:pr-5">
+                    {item.upperHeading && (
+                      <p className="text-sm uppercase tracking-widest font-medium opacity-70">
+                        {item.upperHeading}
+                      </p>
+                    )}
                     <div className="flex items-center gap-2">
                       <h3 className="text-3xl font-black">{item.title}</h3>
                     </div>
@@ -76,7 +82,11 @@ export default function CardCarouselSectionOne({
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="flex items-center gap-2 lg:pr-16">
+        <div
+          className={cn('flex items-center gap-2 lg:pr-16', {
+            'lg:hidden ': cards.length <= 3,
+          })}
+        >
           <CarouselPrevious className="static translate-none bg-secondary! border-none rounded-full" />
           <CarouselProgress />
           <CarouselNext className="static translate-none bg-secondary! border-none rounded-full" />

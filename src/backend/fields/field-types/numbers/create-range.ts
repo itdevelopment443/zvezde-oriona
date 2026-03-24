@@ -1,37 +1,20 @@
-import { createAdminCondition } from '@/backend/utils/payload/fields/conditions/create-admin-condition'
-import type { NumberField } from 'payload'
+import { createNumber, type NumberProps } from './base/create-number'
 
-type RatingField = Extract<NumberField, { type: 'number'; hasMany?: false }>
-type RatingProps = Omit<RatingField, 'name' | 'type' | 'hasMany'> & {
+type RangeProps = Omit<Parameters<typeof createNumber>[0], 'name' | 'validate'> & {
   name?: string
-  conditionField?: string
-  conditionValue?: string | number | boolean
 }
 
-export const createRating = ({
-  name = 'rating',
+export const createRange = ({
+  name = 'range',
   min = 0,
-  max = 10,
+  max = 100,
   defaultValue = 0,
-  conditionField,
-  conditionValue,
   ...props
-}: RatingProps = {}): RatingField => ({
-  name,
-  type: 'number',
-  hasMany: false,
-  min,
-  max,
-  defaultValue,
-  ...props,
-  validate: (value: number | null | undefined) => {
-    if (value == null) return true
-    if (value < min || value > max) return `Rating must be between ${min} and ${max}.`
-    if (!Number.isInteger(value)) return 'Rating must be a whole number.'
-    return true
-  },
-  admin: {
-    condition: createAdminCondition(conditionField, conditionValue),
-    ...props.admin,
-  },
-})
+}: RangeProps = {}) =>
+  createNumber({
+    name,
+    min,
+    max,
+    defaultValue,
+    ...props,
+  } as NumberProps)

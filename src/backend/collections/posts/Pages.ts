@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { isAdminOrEditor } from '../access-control/isAdminOrEditor'
-import { createSlug } from '@/backend/fields/non-localized/text/create-slug'
+import { createSlug } from '@/backend/fields/field-types/text/page/create-slug'
 import { HomeHeroBlock } from '@/backend/blocks/home-hero-block'
 import { ExposedNewsBlock } from '@/backend/blocks/exposed-news-block'
 import { SeperatorBlock } from '@/backend/blocks/seperator-block'
@@ -10,9 +10,9 @@ import { AboutUsBlock } from '@/backend/blocks/about-us-block'
 import { LawBlock } from '@/backend/blocks/law-block'
 import { NewsArchiveBlock } from '@/backend/blocks/news-archive-block'
 import { createPublishedAt } from '@/backend/fields/field-types/date/create-published-at'
-import { createFeaturedImage } from '@/backend/fields/field-types/images/create-featured-image'
 import { createExcerpt } from '@/backend/fields/field-types/text/page/create-excerpt'
 import { createTitle } from '@/backend/fields/field-types/text/page/create-title'
+import { createFeaturedImage } from '@/backend/fields/field-types/uploads/create-featured-image'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -51,14 +51,15 @@ export const Pages: CollectionConfig = {
   },
   trash: true,
   fields: [
-    createPublishedAt(),
-    createSlug(),
-    createTitle({ required: true, unique: true }),
-    createExcerpt({ required: true }),
+    createPublishedAt({ required: true }),
+    createSlug({ localized: true }),
+    createTitle({ required: true, unique: true, localized: true }),
+    createExcerpt({ required: true, localized: true }),
     createFeaturedImage(),
     {
       name: 'sections',
       type: 'blocks',
+      localized: true,
       blocks: [
         HomeHeroBlock,
         ExposedNewsBlock,
