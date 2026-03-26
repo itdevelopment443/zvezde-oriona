@@ -22,7 +22,7 @@ COPY . .
 RUN npm run build
 
 # Expose the port that the Next.js app will listen on
-EXPOSE 3000
+EXPOSE 3001
 
 # Run the app in production mode
 CMD ["npm", "start"]

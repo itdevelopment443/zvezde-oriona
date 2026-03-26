@@ -29,7 +29,7 @@ services:
     container_name: zvezde-oriona-website
     restart: always
     ports:
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
       - postgres-zvezde-oriona-website
     env_file:
