@@ -7,13 +7,14 @@ import {
   CarouselProgress,
 } from '@/frontend/components/ui/carousel'
 import { cn } from '@/frontend/lib/utils'
-import { VimeoVideo } from '@/types/video-types'
+import { getText } from '@/frontend/utils/normalize'
+import { VideoBlock } from '@/payload-types'
 
 interface VideoCarouselSectionOneProps {
   id: string
   heading: string
   description?: string
-  videos: VimeoVideo[]
+  videos: VideoBlock['videos']
   className?: string
 }
 
@@ -28,6 +29,8 @@ export default function VideoCarouselSectionOne({
   videos,
   className,
 }: VideoCarouselSectionOneProps) {
+  if (!videos) return
+
   return (
     <section id={id} className={cn(' gap-6 lg:gap-8', className)}>
       <div className="flex gap-10 pr-16">
@@ -47,7 +50,7 @@ export default function VideoCarouselSectionOne({
         }}
       >
         <CarouselContent>
-          {videos.map((item, index) => (
+          {videos?.map((item, index) => (
             <CarouselItem
               className={cn('', {
                 'lg:basis-1/3': videos.length <= 3,
@@ -60,7 +63,7 @@ export default function VideoCarouselSectionOne({
                 <div className="w-full overflow-hidden">
                   <div className="relative aspect-video w-full">
                     <iframe
-                      src={getVimeoEmbedUrl(item.vimeoId)}
+                      src={getVimeoEmbedUrl(getText(item.videoId))}
                       className="absolute inset-0 h-full w-full"
                       allow="autoplay; fullscreen; picture-in-picture"
                       allowFullScreen

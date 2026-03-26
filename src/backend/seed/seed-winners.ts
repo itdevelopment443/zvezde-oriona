@@ -1,3 +1,5 @@
+/*
+
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
@@ -132,3 +134,5 @@ seed().catch((err) => {
   console.error(err)
   process.exit(1)
 })
+
+*/

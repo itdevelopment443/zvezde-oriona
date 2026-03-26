@@ -3,7 +3,7 @@ import type { Payload } from 'payload'
 interface GenerateYearParams {
   payload: Payload
   date: string | null | undefined
-  collection: 'event-years' | 'news-years'
+  collection: 'news-years'
 }
 
 export async function generateYear({ payload, date, collection }: GenerateYearParams) {

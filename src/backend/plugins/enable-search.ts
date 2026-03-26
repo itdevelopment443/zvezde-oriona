@@ -1,7 +1,7 @@
 import { searchPlugin } from '@payloadcms/plugin-search'
-import { createExcerpt } from '../fields/non-localized/text/create-excerpt'
-import { createSlug } from '../fields/non-localized/text/create-slug'
-import { createTitle } from '../fields/non-localized/text/create-title'
+import { createExcerpt } from '../fields/field-types/text/page/create-excerpt'
+import { createSlug } from '../fields/field-types/text/page/create-slug'
+import { createTitle } from '../fields/field-types/text/page/create-title'
 
 export const enableSearch = () => {
   return searchPlugin({
@@ -15,7 +15,7 @@ export const enableSearch = () => {
       slug: 'search-results',
       fields: ({ defaultFields }) => [
         ...defaultFields,
-        createSlug({ position: 'default' }),
+        createSlug({ admin: { position: 'sidebar' } }),
         createExcerpt(),
       ],
     },

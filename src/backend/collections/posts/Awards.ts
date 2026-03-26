@@ -8,6 +8,8 @@ import { createTitle } from '@/backend/fields/field-types/text/page/create-title
 import { createFeaturedImage } from '@/backend/fields/field-types/uploads/create-featured-image'
 import { AwardWinnersBlock } from '@/backend/blocks/award-winners-block'
 import { SeperatorBlock } from '@/backend/blocks/seperator-block'
+import { GalleryBlock } from '@/backend/blocks/gallery-block'
+import { VideoBlock } from '@/backend/blocks/video-block'
 
 export const Awards: CollectionConfig = {
   slug: 'awards',
@@ -42,7 +44,7 @@ export const Awards: CollectionConfig = {
       name: 'sections',
       type: 'blocks',
       localized: true,
-      blocks: [AwardsHeroBlock, SeperatorBlock, AwardWinnersBlock],
+      blocks: [AwardsHeroBlock, SeperatorBlock, AwardWinnersBlock, GalleryBlock, VideoBlock],
     },
   ],
 }

@@ -1,4 +1,5 @@
 import { cn } from '@/frontend/lib/utils'
+import { getText } from '@/frontend/utils/normalize'
 import { Card } from '@/types/card-types'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
@@ -34,7 +35,7 @@ export default function CardSectionOne({
         {cards
           .filter((v, i) => i < limit)
           .map((v, i) => (
-            <Link key={i} href={v.link.href} className="h-full w-full">
+            <Link key={i} href={getText(v.link?.href)} className="h-full w-full">
               <div className="relative h-full px-8 py-18 md:px-18 md:py-24 xl:py-32 flex flex-col gap-6 bg-secondary">
                 <div className="absolute hidden md:flex top-5 right-5 border-2 p-2 border-tertiary rounded-full">
                   <ChevronRight />

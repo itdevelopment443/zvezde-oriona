@@ -419,8 +419,24 @@ export interface Event {
             blockType: 'seperator-block';
           }
         | WinnersBlock
-        | GalleryBlock
-        | VideoBlock
+        | {
+            heading?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'gallery-block';
+          }
+        | {
+            heading?: string | null;
+            videos?:
+              | {
+                  videoId?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'video-block';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -481,26 +497,6 @@ export interface WinnersBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "GalleryBlock".
- */
-export interface GalleryBlock {
-  heading?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'gallery-block';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "VideoBlock".
- */
-export interface VideoBlock {
-  heading?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'video-block';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "awards".
  */
 export interface Award {
@@ -511,7 +507,7 @@ export interface Award {
   title?: string | null;
   excerpt?: string | null;
   'featured-image'?: (number | null) | Image;
-  sections?: (AwardsHeroBlock | SeperatorBlock | AwardWinnerBlock)[] | null;
+  sections?: (AwardsHeroBlock | SeperatorBlock | AwardWinnerBlock | GalleryBlock | VideoBlock)[] | null;
   updatedAt: string;
   createdAt: string;
   deletedAt?: string | null;
@@ -545,6 +541,32 @@ export interface AwardWinnerBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'award-winner-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  heading?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery-block';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  heading?: string | null;
+  videos?:
+    | {
+        videoId?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'video-block';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1237,6 +1259,12 @@ export interface GalleryBlockSelect<T extends boolean = true> {
  */
 export interface VideoBlockSelect<T extends boolean = true> {
   heading?: T;
+  videos?:
+    | T
+    | {
+        videoId?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1257,6 +1285,8 @@ export interface AwardsSelect<T extends boolean = true> {
         'awards-hero-block'?: T | AwardsHeroBlockSelect<T>;
         'seperator-block'?: T | SeperatorBlockSelect<T>;
         'award-winner-block'?: T | AwardWinnerBlockSelect<T>;
+        'gallery-block'?: T | GalleryBlockSelect<T>;
+        'video-block'?: T | VideoBlockSelect<T>;
       };
   updatedAt?: T;
   createdAt?: T;

@@ -4,8 +4,6 @@ import Footer from '@/frontend/components/global/Footer'
 import Header from '@/frontend/components/global/Header'
 import { helvetica } from 'public/fonts/helvetica'
 import { helveticaStd } from 'public/fonts/helvetica-std'
-import { Locale } from '@/i18n/i18n.config'
-
 export const metadata: Metadata = {
   title: 'Zvezde Oriona',
 }
@@ -15,7 +13,7 @@ export default function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode
-  params: Promise<{ locale: Locale }>
+  params: Promise<{ locale: string }>
 }>) {
   return (
     <html className="dark" lang="sl">
