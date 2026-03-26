@@ -22,7 +22,7 @@ export default async function Header({ locale: localePromise }: HeaderProps) {
       sort: '-title',
       limit: 20,
     }),
-    payload.find({ collection: 'events', locale: locale as 'sl' | 'en', sort: '-year', limit: 20 }),
+    payload.find({ collection: 'events', locale: locale as 'sl' | 'en', sort: 'year', limit: 20 }),
   ])
 
   const navItems: NavItem[] = [
