@@ -23,5 +23,9 @@ declare namespace NodeJS {
     VIMEO_CLIENT_ID: string
     VIMEO_CLIENT_SECRET: string
     VIMEO_TOKEN: string
+
+    // VPS
+    VPS_AIPA_ADMIN: string
+    VPS_ZVEZDE_ORIONA_ADMIN: string
   }
 }

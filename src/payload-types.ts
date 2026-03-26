@@ -382,6 +382,7 @@ export interface ImagesBlock {
  */
 export interface Event {
   id: number;
+  _order?: string | null;
   'published-at'?: string;
   slug?: string | null;
   year?:
@@ -596,6 +597,8 @@ export interface Person {
 export interface Gallery {
   id: number;
   alt?: string | null;
+  avtor?: string | null;
+  event?: (number | null) | Event;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -653,13 +656,6 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
   password?: string | null;
   collection: 'users';
 }
@@ -1183,6 +1179,7 @@ export interface ImagesBlockSelect<T extends boolean = true> {
  * via the `definition` "events_select".
  */
 export interface EventsSelect<T extends boolean = true> {
+  _order?: T;
   'published-at'?: T;
   slug?: T;
   year?: T;
@@ -1312,6 +1309,8 @@ export interface PeopleSelect<T extends boolean = true> {
  */
 export interface GallerySelect<T extends boolean = true> {
   alt?: T;
+  avtor?: T;
+  event?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1384,13 +1383,6 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

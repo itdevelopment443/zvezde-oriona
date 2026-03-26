@@ -1,16 +1,14 @@
 'use client'
 
 import { ReactSelect, useNav } from '@payloadcms/ui'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 const options = [
-  { label: 'Zvezde Oriona', value: 'http://localhost:3000/admin' },
-  { label: 'AIPA', value: 'http://localhost:3000/admin' },
+  { label: 'Zvezde Oriona', value: process.env.NEXT_PUBLIC_VPS_ZVEZDE_ORIONA_ADMIN },
+  { label: 'AIPA', value: process.env.NEXT_PUBLIC_VPS_AIPA_ADMIN },
 ]
 
 export function AdminNavHeader() {
-  const router = useRouter()
   const { navOpen, setNavOpen } = useNav()
   const [selected, setSelected] = useState(options[0])
 
@@ -75,7 +73,7 @@ export function AdminNavHeader() {
             if (option && !Array.isArray(option)) {
               const opt = option as { label: string; value: string }
               setSelected(opt)
-              router.push(opt.value)
+              window.location.href = opt.value
             }
           }}
           options={options}

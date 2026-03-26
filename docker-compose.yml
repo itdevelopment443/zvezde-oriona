@@ -1,0 +1,63 @@
+version: "3.9"
+
+networks:
+  private_network:
+    driver: bridge
+
+services:
+  postgres-zvezde-oriona-website:
+    image: postgres:16
+    container_name: postgres-zvezde-oriona-website
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "127.0.0.1:5432:5432"
+    networks:
+      - private_network
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+
+  zvezde-oriona-website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zvezde-oriona-website
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres-zvezde-oriona-website
+    env_file:
+      - .env
+    networks:
+      - private_network
+    volumes:
+      - ./images:/app/images
+      - ./gallery:/app/gallery
+    labels:
+      - traefik.enable=true
+
+      # ===== PUBLIC router (redirect /admin) =====
+      - traefik.http.routers.zvezde-oriona-public.rule=Host(`zvezdeoriona.si`,`www.zvezdeoriona.si`)
+      - traefik.http.routers.zvezde-oriona-public.entryPoints=https
+      - traefik.http.routers.zvezde-oriona-public.tls.certresolver=letsencrypt
+      - traefik.http.routers.zvezde-oriona-public.middlewares=zvezde-oriona-redirect-admin,zvezde-oriona-redirect-www
+
+      # /admin -> /
+      - traefik.http.middlewares.zvezde-oriona-redirect-admin.redirectregex.regex=^https?://([^/]+)/admin(/.*)?$
+      - traefik.http.middlewares.zvezde-oriona-redirect-admin.redirectregex.replacement=https://${1}/
+      - traefik.http.middlewares.zvezde-oriona-redirect-admin.redirectregex.permanent=true
+
+      # www -> non-www (optional)
+      - traefik.http.middlewares.zvezde-oriona-redirect-www.redirectregex.regex=^https?://www\.(.+)
+      - traefik.http.middlewares.zvezde-oriona-redirect-www.redirectregex.replacement=https://${1}
+      - traefik.http.middlewares.zvezde-oriona-redirect-www.redirectregex.permanent=true
+
+      # ===== LOCAL router (NO redirect) =====
+      - traefik.http.routers.zvezde-oriona-local.rule=Host(`localhost`) || Host(`127.0.0.1`)
+      - traefik.http.routers.zvezde-oriona-local.entryPoints=http

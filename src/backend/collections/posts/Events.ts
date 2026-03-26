@@ -15,6 +15,7 @@ import { createYear } from '@/backend/fields/field-types/select/create-year'
 
 export const Events: CollectionConfig = {
   slug: 'events',
+  orderable: true,
   admin: {
     useAsTitle: 'title',
     group: 'Posts',

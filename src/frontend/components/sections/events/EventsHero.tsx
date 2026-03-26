@@ -13,7 +13,7 @@ export default async function EventsHero({ id, title, year, locale }: EventsHero
 
   const result = await payload.find({
     collection: 'events',
-    sort: '-year',
+    sort: 'year',
     limit: 50,
     select: { year: true },
   })
