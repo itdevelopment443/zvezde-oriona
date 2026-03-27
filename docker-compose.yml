@@ -1,9 +1,5 @@
 version: "3.9"
 
-networks:
-  private_network:
-    driver: bridge
-
 services:
   postgres-zvezde-oriona-website:
     image: postgres:16
@@ -17,8 +13,6 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "127.0.0.1:5433:5432"
-    networks:
-      - private_network
     volumes:
       - ./database/data:/var/lib/postgresql/data
 
@@ -34,8 +28,6 @@ services:
       - postgres-zvezde-oriona-website
     env_file:
       - .env
-    networks:
-      - private_network
     volumes:
       - ./images:/app/images
       - ./gallery:/app/gallery
