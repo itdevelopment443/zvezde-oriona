@@ -8,6 +8,6 @@ export const createHeading = ({ name = 'heading', ...props }: HeadingProps = {})
   createText({
     name,
     minLength: 0,
-    maxLength: 60,
+    maxLength: 200,
     ...props,
   } as TextProps)

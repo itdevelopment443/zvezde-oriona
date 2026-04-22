@@ -2,6 +2,7 @@ import { AboutEventBlock, Event } from '@/payload-types'
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '../../ui/dialog'
 import { Button } from '../../ui/button'
 import { getText } from '@/frontend/utils/normalize'
+import { formatDate } from '@/frontend/lib/date'
 
 interface AboutEventSectionProps extends AboutEventBlock {
   doc: Event
@@ -18,7 +19,7 @@ export default function AboutEventSection({
       <div className="flex flex-col lg:items-start gap-8">
         {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
         <div className="flex flex-col gap-2">
-          <p>Datum: {doc['published-at']}</p>
+          <p>Datum: {formatDate(doc['published-at'])}</p>
           <p>Lokacija: {doc.location}</p>
         </div>
         <Dialog>

@@ -192,6 +192,7 @@ export interface Page {
 export interface Image {
   id: number;
   alt?: string | null;
+  avtor?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1359,6 +1360,7 @@ export interface GallerySelect<T extends boolean = true> {
  */
 export interface ImagesSelect<T extends boolean = true> {
   alt?: T;
+  avtor?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

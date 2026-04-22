@@ -51,5 +51,6 @@ services:
       - traefik.http.middlewares.zvezde-oriona-redirect-www.redirectregex.permanent=true
 
       # ===== LOCAL router (NO redirect) =====
-      - traefik.http.routers.zvezde-oriona-local.rule=Host(`localhost`) || Host(`127.0.0.1`)
+      - traefik.http.routers.zvezde-oriona-local.rule=Host(`localhost`) ||
+        Host(`127.0.0.1`) || Host(`admin.aipa.local`)
       - traefik.http.routers.zvezde-oriona-local.entryPoints=http

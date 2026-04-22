@@ -1,7 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { isAdminOrEditor } from '../access-control/isAdminOrEditor'
 import { createText } from '@/backend/fields/field-types/text/base/create-text'
-import { createImage } from '@/backend/fields/field-types/uploads/create-image'
 
 export const People: CollectionConfig = {
   slug: 'people',
@@ -9,6 +8,7 @@ export const People: CollectionConfig = {
     useAsTitle: 'name',
     group: 'Personas',
     defaultColumns: ['name', 'createdAt'],
+    hidden: true,
   },
   access: {
     read: () => true,

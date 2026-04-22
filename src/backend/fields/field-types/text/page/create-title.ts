@@ -8,6 +8,6 @@ export const createTitle = ({ name = 'title', ...props }: TitleProps = {}) =>
   createText({
     name,
     minLength: 0,
-    maxLength: 60,
+    maxLength: 200,
     ...props,
   } as TextProps)

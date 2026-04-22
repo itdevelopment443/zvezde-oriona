@@ -12,6 +12,9 @@ export const createPublishedAt = ({ name = 'published-at', ...props }: Published
     typescriptSchema: [() => ({ type: 'string' })],
     admin: {
       position: 'sidebar',
+      date: {
+        displayFormat: 'dd.MM.yyyy',
+      },
       ...props.admin,
     },
     ...props,

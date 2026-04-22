@@ -20,7 +20,7 @@ export const Gallery: CollectionConfig = {
   },
   fields: [
     createAlternativeText(),
-    createText({ name: 'avtor' }),
+    createText({ name: 'avtor', label: 'foto' }),
     createRelationship({ name: 'event', relationTo: 'events', admin: { position: 'sidebar' } }),
   ],
   upload: true,
