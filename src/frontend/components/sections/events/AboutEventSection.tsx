@@ -19,7 +19,7 @@ export default function AboutEventSection({
       <div className="flex flex-col lg:items-start gap-8">
         {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
         <div className="flex flex-col gap-2">
-          <p>Datum: {formatDate(doc['published-at'])}</p>
+          <p>Datum: {formatDate(doc['published-at'] || '')}</p>
           <p>Lokacija: {doc.location}</p>
         </div>
         <Dialog>
