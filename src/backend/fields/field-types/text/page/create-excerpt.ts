@@ -11,6 +11,6 @@ export const createExcerpt = ({ name = 'excerpt', ...props }: ExcerptProps = {})
   createTextarea({
     name,
     minLength: 0,
-    maxLength: 300,
+    maxLength: 2000,
     ...props,
   })
