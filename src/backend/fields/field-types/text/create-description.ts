@@ -11,6 +11,6 @@ export const createDescription = ({ name = 'description', ...props }: Descriptio
   createTextarea({
     name,
     minLength: 0,
-    maxLength: 300,
+    maxLength: 2000,
     ...props,
   })

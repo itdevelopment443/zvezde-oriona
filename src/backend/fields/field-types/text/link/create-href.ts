@@ -8,6 +8,6 @@ export const createHref = ({ name = 'href', ...props }: HrefProps = {}) =>
   createText({
     name,
     minLength: 0,
-    maxLength: 60,
+    maxLength: 120,
     ...props,
   } as TextProps)
