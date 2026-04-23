@@ -65,19 +65,17 @@ export default function GalleryCarouselSectionOne({
                   <div className="flex flex-col items-start gap-8 py-6">
                     <button
                       onClick={() => setActiveIndex(index)}
-                      className="w-full relative group cursor-zoom-in focus:outline-none"
+                      className="w-full relative group cursor-pointer focus:outline-none"
                       aria-label={`Open image ${index + 1}`}
                     >
-                      <Image
-                        src={item.featured_image}
-                        height={300}
-                        width={500}
-                        alt="prikazna slika"
-                        className="w-full"
-                      />
-                      <div className="absolute inset-0 bg-secondary/80 flex flex-col items-center justify-center text-center p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-400">
-                        <h3 className="text-3xl uppercase font-black">{item.title}</h3>
-                        <p>{item.excerpt}</p>
+                      <div className="relative w-full aspect-video overflow-hidden">
+                        <Image
+                          src={item.featured_image}
+                          fill
+                          alt="prikazna slika"
+                          className="object-cover object-top"
+                        />
+                        <div className="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
                       </div>
                     </button>
                   </div>

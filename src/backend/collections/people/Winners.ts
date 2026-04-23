@@ -7,6 +7,8 @@ import { createImage } from '@/backend/fields/field-types/uploads/create-image'
 
 export const Winners: CollectionConfig = {
   slug: 'winners',
+  orderable: true,
+
   admin: {
     useAsTitle: 'id',
     group: 'Personas',

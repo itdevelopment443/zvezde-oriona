@@ -96,7 +96,7 @@ export default async function NewsArchive({
           </div>
           {description && <p className="text-xl max-w-xl pr-10">{description}</p>}
           {yearOptions.length > 0 && (
-            <div className="flex lg:justify-end w-full lg:w-260">
+            <div className="hidden lg:justify-end w-full lg:w-260">
               <ReusableCombobox
                 className="w-full px-4 py-6 lg:py-8 rounded-none border-2 border-white"
                 inputClassName="text-xl! lg:text-2xl! uppercase font-bold placeholder:text-lg! lg:placeholder:text-2xl! placeholder:font-normal"

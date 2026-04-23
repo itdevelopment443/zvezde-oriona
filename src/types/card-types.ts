@@ -9,5 +9,6 @@ export interface Card {
   title: string
   featured_image: string
   excerpt?: string
+  avtor?: string
   link?: CardLink
 }

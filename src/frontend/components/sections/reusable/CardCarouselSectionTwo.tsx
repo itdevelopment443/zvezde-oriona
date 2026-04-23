@@ -67,8 +67,8 @@ export default function CardCarouselSectionTwo({
                   <div className="w-full">
                     <Image
                       src={item.featured_image}
-                      height={300}
-                      width={500}
+                      height={600}
+                      width={1000}
                       alt="prikazna slika"
                       className="w-full"
                     />

@@ -4,6 +4,7 @@ import { createAlternativeText } from '@/backend/fields/field-types/text/image/c
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
+  orderable: true,
   admin: {
     group: 'Uploads',
   },

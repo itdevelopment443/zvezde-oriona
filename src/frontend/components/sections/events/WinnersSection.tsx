@@ -40,6 +40,7 @@ export default async function WinnersSection({ heading, year, locale }: WinnersS
       title: person?.name ?? '',
       featured_image: image?.url ?? '',
       excerpt: winner.description ?? '',
+      avtor: image?.avtor ?? '',
       link: { href: '' },
     }
   })

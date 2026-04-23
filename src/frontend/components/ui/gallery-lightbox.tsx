@@ -5,7 +5,6 @@ import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import { Card } from '@/types/card-types'
-import { cn } from '@/frontend/lib/utils'
 
 interface GalleryLightboxProps {
   cards: Card[]
@@ -54,7 +53,7 @@ export function GalleryLightbox({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
       onClick={onClose}
     >
       {/* Close */}
@@ -100,16 +99,9 @@ export function GalleryLightbox({
         </div>
 
         {/* Caption */}
-        {(item.title || item.excerpt) && (
-          <div className="bg-black/60 px-4 py-3 text-white text-center">
-            {item.title && (
-              <p className="font-black uppercase text-lg">{item.title}</p>
-            )}
-            {item.excerpt && (
-              <p className={cn('text-sm text-white/70', { 'mt-1': !!item.title })}>
-                {item.excerpt}
-              </p>
-            )}
+        {item.title && (
+          <div className="px-4 py-2 text-white/60 text-sm text-center">
+            foto: {item.title}
           </div>
         )}
       </div>

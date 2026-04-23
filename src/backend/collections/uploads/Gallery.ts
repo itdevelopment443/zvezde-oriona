@@ -6,6 +6,7 @@ import { createText } from '@/backend/fields/field-types/text/base/create-text'
 
 export const Gallery: CollectionConfig = {
   slug: 'gallery',
+  orderable: true,
   admin: {
     group: 'Uploads',
   },

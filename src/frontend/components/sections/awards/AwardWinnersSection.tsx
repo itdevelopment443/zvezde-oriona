@@ -47,6 +47,7 @@ export default async function AwardWinnersSection({ id, doc, locale }: AwardWinn
             title: person?.name ?? '',
             featured_image: image?.url ?? '',
             excerpt: winner.description ?? '',
+            avtor: image?.avtor ?? '',
             link: { href: '' },
           }
         })

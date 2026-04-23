@@ -60,11 +60,16 @@ export default function CardCarouselSectionOne({
                   <div className="relative w-full">
                     <Image
                       src={item.featured_image}
-                      height={500}
-                      width={500}
+                      height={1000}
+                      width={1000}
                       alt="prikazna slika"
                       className="block w-full aspect-square object-cover border-2 border-secondary"
                     />
+                    {item.avtor && (
+                      <span className="absolute bottom-1 right-2 text-white/60 text-xs">
+                        foto: {item.avtor}
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-col gap-3 lg:pr-5">
                     {item.upperHeading && (

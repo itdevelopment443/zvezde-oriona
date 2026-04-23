@@ -59,4 +59,4 @@ export const mainFooterMenu: MenuItem[] = [
   },
 ]
 
-export const copyrightFooter = '© Vse pravice zadržane Aipa, k.o.'
+export const copyrightFooter = '© Vse pravice zadržane AIPA, k.o.'

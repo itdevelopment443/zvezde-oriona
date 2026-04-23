@@ -191,6 +191,7 @@ export interface Page {
  */
 export interface Image {
   id: number;
+  _order?: string | null;
   alt?: string | null;
   avtor?: string | null;
   updatedAt: string;
@@ -575,6 +576,7 @@ export interface VideoBlock {
  */
 export interface Winner {
   id: number;
+  _order?: string | null;
   person?: (number | null) | Person;
   award?: (number | null) | Award;
   year?:
@@ -619,6 +621,7 @@ export interface Person {
  */
 export interface Gallery {
   id: number;
+  _order?: string | null;
   alt?: string | null;
   avtor?: string | null;
   event?: (number | null) | Event;
@@ -640,6 +643,7 @@ export interface Gallery {
  */
 export interface Document {
   id: number;
+  _order?: string | null;
   alt?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -1317,6 +1321,7 @@ export interface AwardWinnerBlockSelect<T extends boolean = true> {
  * via the `definition` "winners_select".
  */
 export interface WinnersSelect<T extends boolean = true> {
+  _order?: T;
   person?: T;
   award?: T;
   year?: T;
@@ -1339,6 +1344,7 @@ export interface PeopleSelect<T extends boolean = true> {
  * via the `definition` "gallery_select".
  */
 export interface GallerySelect<T extends boolean = true> {
+  _order?: T;
   alt?: T;
   avtor?: T;
   event?: T;
@@ -1359,6 +1365,7 @@ export interface GallerySelect<T extends boolean = true> {
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
+  _order?: T;
   alt?: T;
   avtor?: T;
   updatedAt?: T;
@@ -1378,6 +1385,7 @@ export interface ImagesSelect<T extends boolean = true> {
  * via the `definition` "documents_select".
  */
 export interface DocumentsSelect<T extends boolean = true> {
+  _order?: T;
   alt?: T;
   updatedAt?: T;
   createdAt?: T;
