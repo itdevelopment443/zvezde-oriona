@@ -79,7 +79,7 @@ export default function CardCarouselSectionTwo({
                       {item.upperHeading ?? <p>{item.upperHeading}</p>}
                       <h3 className="text-3xl uppercase font-black">{item.title}</h3>
                     </div>
-                    <p>{item.excerpt}</p>
+                    <p className="pl-2">{item.excerpt}</p>
                   </div>
                 </div>
               </Link>
