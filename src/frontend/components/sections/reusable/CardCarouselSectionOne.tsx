@@ -57,21 +57,21 @@ export default function CardCarouselSectionOne({
             >
               <div>
                 <div className="flex flex-col items-start gap-8 py-6 ">
-                  <div className="relative w-full aspect-square border-2 border-secondary overflow-hidden bg-primary">
+                  <div className="relative w-full aspect-square border-2 border-secondary overflow-hidden" style={{ background: 'oklch(0.24 0.07 252.56)' }}>
                     {[
-                      { top: '8%',  left: '12%', delay: '0s',   size: 1.5 },
-                      { top: '18%', left: '78%', delay: '0.7s', size: 1 },
-                      { top: '35%', left: '5%',  delay: '1.3s', size: 1 },
-                      { top: '65%', left: '88%', delay: '0.4s', size: 1.5 },
-                      { top: '80%', left: '20%', delay: '1.8s', size: 1 },
-                      { top: '50%', left: '93%', delay: '1s',   size: 1 },
-                      { top: '4%',  left: '55%', delay: '0.5s', size: 1 },
-                      { top: '90%', left: '60%', delay: '2.2s', size: 1.5 },
-                      { top: '25%', left: '40%', delay: '1.6s', size: 1 },
+                      { top: '8%',  left: '12%', delay: '0s',   size: 0.5 },
+                      { top: '18%', left: '78%', delay: '0.7s', size: 0.4 },
+                      { top: '35%', left: '5%',  delay: '1.3s', size: 0.4 },
+                      { top: '65%', left: '88%', delay: '0.4s', size: 0.5 },
+                      { top: '80%', left: '20%', delay: '1.8s', size: 0.4 },
+                      { top: '50%', left: '93%', delay: '1s',   size: 0.4 },
+                      { top: '4%',  left: '55%', delay: '0.5s', size: 0.4 },
+                      { top: '90%', left: '60%', delay: '2.2s', size: 0.5 },
+                      { top: '25%', left: '40%', delay: '1.6s', size: 0.4 },
                     ].map((s, i) => (
                       <span
                         key={i}
-                        className="absolute pointer-events-none text-white leading-none"
+                        className="absolute pointer-events-none text-yellow-300 leading-none"
                         style={{ top: s.top, left: s.left, fontSize: `${s.size}rem`, animation: `twinkle 2.5s ease-in-out ${s.delay} infinite`, lineHeight: 1 }}
                       >
                         ✦
