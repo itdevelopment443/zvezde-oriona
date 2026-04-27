@@ -1,5 +1,6 @@
 import { createRoles } from '@/backend/fields/field-types/select/auth/create-roles'
 import type { CollectionConfig } from 'payload'
+import { isAdmin } from '../access-control/isAdmin'
 import { isAdminOrSelf } from '../access-control/isAdminOrSelf'
 
 export const Users: CollectionConfig = {
@@ -13,9 +14,9 @@ export const Users: CollectionConfig = {
   },
   access: {
     read: isAdminOrSelf,
-    create: isAdminOrSelf,
+    create: isAdmin,
     update: isAdminOrSelf,
-    delete: isAdminOrSelf,
+    delete: isAdmin,
   },
   auth: {
     useSessions: false,

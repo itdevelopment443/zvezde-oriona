@@ -57,14 +57,14 @@ export default function CardCarouselSectionOne({
             >
               <div>
                 <div className="flex flex-col items-start gap-8 py-6 ">
-                  <div className="relative w-full">
+                  <div className="relative w-full aspect-square border-2 border-secondary overflow-hidden" style={{ background: 'oklch(0.35 0.08 73.88)' }}>
                     <Image
                       src={item.featured_image}
-                      height={1200}
-                      width={1200}
+                      fill
                       alt="prikazna slika"
-                      className="block w-full aspect-square object-cover object-top border-2 border-secondary"
+                      className="object-contain"
                     />
+                    <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary/60 to-transparent pointer-events-none" />
                     {item.avtor && (
                       <span className="absolute bottom-1 right-2 text-white/60 text-xs">
                         foto: {item.avtor}

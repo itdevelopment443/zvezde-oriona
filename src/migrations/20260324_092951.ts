@@ -1,6 +1,7 @@
 import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
+  try {
   await db.execute(sql`
    CREATE TYPE "public"."_locales" AS ENUM('en', 'sl');
   CREATE TYPE "public"."enum_pages_blocks_about_us_block_contacts_icon" AS ENUM('Mail', 'Phone', 'MapPin', 'Globe');
@@ -1375,6 +1376,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "payload_query_presets_rels_parent_idx" ON "payload_query_presets_rels" USING btree ("parent_id");
   CREATE INDEX "payload_query_presets_rels_path_idx" ON "payload_query_presets_rels" USING btree ("path");
   CREATE INDEX "payload_query_presets_rels_users_id_idx" ON "payload_query_presets_rels" USING btree ("users_id");`)
+  } catch (err: any) {
+    if (err.message?.includes('already exists')) {
+      payload.logger.info('Schema already exists (dev mode), skipping migration 20260324_092951')
+      return
+    }
+    throw err
+  }
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
