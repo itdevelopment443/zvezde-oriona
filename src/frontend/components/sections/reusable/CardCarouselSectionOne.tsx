@@ -57,7 +57,22 @@ export default function CardCarouselSectionOne({
             >
               <div>
                 <div className="flex flex-col items-start gap-8 py-6 ">
-                  <div className="relative w-full aspect-square border-2 border-secondary overflow-hidden" style={{ background: 'oklch(0.35 0.08 73.88)' }}>
+                  <div className="relative w-full aspect-square border-2 border-secondary overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 80%, oklch(0.55 0.13 73.88 / 0.5) 0%, transparent 55%), radial-gradient(ellipse at 75% 15%, oklch(0.65 0.15 73.88 / 0.35) 0%, transparent 45%), oklch(0.28 0.09 73.88)' }}>
+                    {[
+                      { top: '10%', left: '15%', delay: '0s', size: 'w-1 h-1' },
+                      { top: '20%', left: '75%', delay: '0.8s', size: 'w-1.5 h-1.5' },
+                      { top: '70%', left: '85%', delay: '0.3s', size: 'w-1 h-1' },
+                      { top: '80%', left: '10%', delay: '1.5s', size: 'w-1 h-1' },
+                      { top: '45%', left: '92%', delay: '1s', size: 'w-1.5 h-1.5' },
+                      { top: '5%',  left: '50%', delay: '0.5s', size: 'w-1 h-1' },
+                      { top: '88%', left: '55%', delay: '2s', size: 'w-1 h-1' },
+                    ].map((s, i) => (
+                      <span
+                        key={i}
+                        className={`absolute ${s.size} rounded-full bg-yellow-200 pointer-events-none`}
+                        style={{ top: s.top, left: s.left, animation: `twinkle 2.5s ease-in-out ${s.delay} infinite` }}
+                      />
+                    ))}
                     <Image
                       src={item.featured_image}
                       fill
