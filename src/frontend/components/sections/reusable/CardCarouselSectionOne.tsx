@@ -57,21 +57,25 @@ export default function CardCarouselSectionOne({
             >
               <div>
                 <div className="flex flex-col items-start gap-8 py-6 ">
-                  <div className="relative w-full aspect-square border-2 border-secondary overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 80%, oklch(0.55 0.13 73.88 / 0.5) 0%, transparent 55%), radial-gradient(ellipse at 75% 15%, oklch(0.65 0.15 73.88 / 0.35) 0%, transparent 45%), oklch(0.28 0.09 73.88)' }}>
+                  <div className="relative w-full aspect-square border-2 border-secondary overflow-hidden bg-primary">
                     {[
-                      { top: '10%', left: '15%', delay: '0s', size: 'w-1 h-1' },
-                      { top: '20%', left: '75%', delay: '0.8s', size: 'w-1.5 h-1.5' },
-                      { top: '70%', left: '85%', delay: '0.3s', size: 'w-1 h-1' },
-                      { top: '80%', left: '10%', delay: '1.5s', size: 'w-1 h-1' },
-                      { top: '45%', left: '92%', delay: '1s', size: 'w-1.5 h-1.5' },
-                      { top: '5%',  left: '50%', delay: '0.5s', size: 'w-1 h-1' },
-                      { top: '88%', left: '55%', delay: '2s', size: 'w-1 h-1' },
+                      { top: '8%',  left: '12%', delay: '0s',   size: 1.5 },
+                      { top: '18%', left: '78%', delay: '0.7s', size: 1 },
+                      { top: '35%', left: '5%',  delay: '1.3s', size: 1 },
+                      { top: '65%', left: '88%', delay: '0.4s', size: 1.5 },
+                      { top: '80%', left: '20%', delay: '1.8s', size: 1 },
+                      { top: '50%', left: '93%', delay: '1s',   size: 1 },
+                      { top: '4%',  left: '55%', delay: '0.5s', size: 1 },
+                      { top: '90%', left: '60%', delay: '2.2s', size: 1.5 },
+                      { top: '25%', left: '40%', delay: '1.6s', size: 1 },
                     ].map((s, i) => (
                       <span
                         key={i}
-                        className={`absolute ${s.size} rounded-full bg-yellow-200 pointer-events-none`}
-                        style={{ top: s.top, left: s.left, animation: `twinkle 2.5s ease-in-out ${s.delay} infinite` }}
-                      />
+                        className="absolute pointer-events-none text-white leading-none"
+                        style={{ top: s.top, left: s.left, fontSize: `${s.size}rem`, animation: `twinkle 2.5s ease-in-out ${s.delay} infinite`, lineHeight: 1 }}
+                      >
+                        ✦
+                      </span>
                     ))}
                     <Image
                       src={item.featured_image}
@@ -79,7 +83,6 @@ export default function CardCarouselSectionOne({
                       alt="prikazna slika"
                       className="object-contain"
                     />
-                    <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary/60 to-transparent pointer-events-none" />
                     {item.avtor && (
                       <span className="absolute bottom-1 right-2 text-white/60 text-xs">
                         foto: {item.avtor}
