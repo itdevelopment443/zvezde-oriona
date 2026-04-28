@@ -18,25 +18,8 @@ interface VideoCarouselSectionOneProps {
   className?: string
 }
 
-function getYouTubeEmbedUrl(input: string) {
-  const trimmed = input.trim()
-  let videoId = ''
-
-  try {
-    const url = new URL(trimmed)
-    if (url.hostname === 'youtu.be') {
-      videoId = url.pathname.slice(1)
-    } else if (url.searchParams.has('v')) {
-      videoId = url.searchParams.get('v') ?? ''
-    } else if (url.pathname.startsWith('/embed/')) {
-      videoId = url.pathname.replace('/embed/', '')
-    }
-  } catch {
-    // if it's not a URL, treat it as a raw video ID
-    videoId = trimmed
-  }
-
-  return `https://www.youtube.com/embed/${videoId}`
+function getVimeoEmbedUrl(videoId: string) {
+  return `https://player.vimeo.com/video/${videoId}`
 }
 
 export default function VideoCarouselSectionOne({
@@ -80,9 +63,9 @@ export default function VideoCarouselSectionOne({
                 <div className="w-full overflow-hidden">
                   <div className="relative aspect-video w-full">
                     <iframe
-                      src={getYouTubeEmbedUrl(getText(item.videoId))}
+                      src={getVimeoEmbedUrl(getText(item.videoId))}
                       className="absolute inset-0 h-full w-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allow="autoplay; fullscreen; picture-in-picture"
                       allowFullScreen
                     />
                   </div>

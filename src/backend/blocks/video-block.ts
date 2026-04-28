@@ -10,6 +10,6 @@ export const VideoBlock: Block = {
   interfaceName: 'VideoBlock',
   fields: [
     createHeading(),
-    createArray({ name: 'videos', fields: [createText({ name: 'videoId' })] }),
+    createArray({ name: 'videos', fields: [createText({ name: 'videoId', label: 'YouTube URL' })] }),
   ],
 }
